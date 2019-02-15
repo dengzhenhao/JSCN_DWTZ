@@ -126,6 +126,8 @@ public class ActivityAddDwtzjysb extends BaseActivity {
 
 	ImageView iv_spinner_apply_user_name;
 	ArrayList<String> listGoodsowner = new ArrayList<String>();
+	ArrayList<String> listItem = new ArrayList<String>();
+	ArrayList<String> listButcheryID= new ArrayList<String>();
 
 	String[] arrMinutes = null;
 
@@ -244,7 +246,7 @@ public class ActivityAddDwtzjysb extends BaseActivity {
 	private String checkContent() {
 		String result = "";
 
-		if (GlobalData.listButchery.get(sp_butchery.getSelectedItemPosition()).InnerID.isEmpty()) {
+		if (listButcheryID.get(sp_butchery.getSelectedItemPosition()).isEmpty()) {
 			return "所属屠宰场不能为空";
 		}
 
@@ -312,10 +314,16 @@ public class ActivityAddDwtzjysb extends BaseActivity {
 
 	@Override
 	public void bindData() {
-
-		ArrayList<String> listItem = new ArrayList<String>();
+		String userButcheryID = "";
+		if (GlobalData.listButcheryByUser.size() > 0) {
+			userButcheryID = GlobalData.listButcheryByUser.get(0).InnerID;
+		}
+		
 		for (int i = 0; i < GlobalData.listButchery.size(); i++) {
-			listItem.add(GlobalData.listButchery.get(i).ButcheryName);
+			if (userButcheryID.equals(GlobalData.listButchery.get(i).InnerID)) {
+				listItem.add(GlobalData.listButchery.get(i).ButcheryName);
+				listButcheryID.add(GlobalData.listButchery.get(i).InnerID);
+			}
 		}
 
 		adapterButchery = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listItem);
@@ -325,7 +333,7 @@ public class ActivityAddDwtzjysb extends BaseActivity {
 			@Override
 			public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
 				// TODO Auto-generated method stub
-				GlobalData.curButcheryID = GlobalData.listButchery.get(position).InnerID;
+				GlobalData.curButcheryID = listButcheryID.get(position);
 				listGoodsowner.clear();
 				for (int i = 0; i < GlobalData.listCommonData.size(); i++) {
 					if (!GlobalData.listCommonData.get(i).ButcheryID.equals(GlobalData.curButcheryID))
@@ -342,15 +350,15 @@ public class ActivityAddDwtzjysb extends BaseActivity {
 
 			}
 		});
-		if(GlobalData.listButcheryByUser.size()>0){
-			String id = GlobalData.listButcheryByUser.get(0).InnerID;
-			for(int i = 0; i<GlobalData.listButchery.size(); i++){
-				if(id.equals(GlobalData.listButchery.get(i).InnerID)){
-					sp_butchery.setSelection(i);
-					break;
-				}
+
+		for (int i = 0; i < listButcheryID.size(); i++) {
+			if (userButcheryID.equals(listButcheryID.get(i))) {
+				sp_butchery.setSelection(i);
+				GlobalData.curButcheryID = userButcheryID;
+				break;
 			}
 		}
+		
 		if (arrMinutes == null) {
 			arrMinutes = new String[60];
 			for (int i = 0; i < 60; i++) {

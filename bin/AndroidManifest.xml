@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.websharp.dwtz"
-    android:versionCode="29"
+    android:versionCode="30"
     android:versionName="@string/str_versionName" >
 
     <!-- 20160608	1		1.0 -->
@@ -32,6 +32,7 @@
     <!-- 20190213 27    1.5.1 -->
     <!-- 20190214 28    1.5.2 -->
     <!-- 20190215 29    1.5.3 -->
+    <!-- 20190215 30    1.5.4 -->
 
     <uses-sdk
         android:minSdkVersion="15"

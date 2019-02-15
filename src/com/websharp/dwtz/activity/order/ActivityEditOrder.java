@@ -15,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -56,7 +57,8 @@ public class ActivityEditOrder extends BaseActivity {
 	EditText et_QuarantineNum;
 	EditText et_QuarantineCount;
 	EditText et_ActualCount;
-	EditText et_ImmuneTag;
+	// EditText et_ImmuneTag;
+	RadioButton rb_Immune_Yes, rb_Immune_No;
 
 	Spinner sp_province, sp_city, sp_county;
 	ArrayAdapter<String> adapterProvince = null;
@@ -148,6 +150,12 @@ public class ActivityEditOrder extends BaseActivity {
 		case R.id.iv_spinner_processcomment:
 			showDialogListView(listProcessComment, et_ProcessComment);
 			break;
+		case R.id.rb_Immune_Yes:
+			rb_Immune_No.setChecked(false);
+			break;
+		case R.id.rb_Immune_No:
+			rb_Immune_Yes.setChecked(false);
+			break;
 		}
 	}
 
@@ -173,9 +181,9 @@ public class ActivityEditOrder extends BaseActivity {
 		if (getText(et_ActualCount).isEmpty()) {
 			return getString(R.string.msg_empty_ActualCount);
 		}
-		if (getText(et_ImmuneTag).isEmpty()) {
-			return getString(R.string.msg_empty_ImmuneTag);
-		}
+		// if (getText(et_ImmuneTag).isEmpty()) {
+		// return getString(R.string.msg_empty_ImmuneTag);
+		// }
 
 		// 瘦肉精检测结果
 		if (getText(et_CheckCount).isEmpty()) {
@@ -220,7 +228,9 @@ public class ActivityEditOrder extends BaseActivity {
 		et_QuarantineNum.setText("");
 		et_QuarantineCount.setText("");
 		et_ActualCount.setText("");
-		et_ImmuneTag.setText("");
+		// et_ImmuneTag.setText("");
+		rb_Immune_Yes.setChecked(true);
+		rb_Immune_No.setChecked(false);
 
 		// 瘦肉精检测结果
 		et_CheckCount.setText("");
@@ -286,7 +296,7 @@ public class ActivityEditOrder extends BaseActivity {
 		json.addProperty("QuarantineNum", getText(et_QuarantineNum));
 		json.addProperty("QuarantineCount", getText(et_QuarantineCount));
 		json.addProperty("ActualCount", getText(et_ActualCount));
-		json.addProperty("ImmuneTag", getText(et_ImmuneTag));
+		json.addProperty("ImmuneTag", rb_Immune_Yes.isChecked() ? "有" : "无");
 
 		json.addProperty("CheckCount", getText(et_CheckCount));
 		json.addProperty("CheckNegativeCount", getText(et_CheckNegativeCount));
@@ -336,7 +346,10 @@ public class ActivityEditOrder extends BaseActivity {
 		et_QuarantineNum = (EditText) findViewById(R.id.et_QuarantineNum);
 		et_QuarantineCount = (EditText) findViewById(R.id.et_QuarantineCount);
 		et_ActualCount = (EditText) findViewById(R.id.et_ActualCount);
-		et_ImmuneTag = (EditText) findViewById(R.id.et_ImmuneTag);
+		// et_ImmuneTag = (EditText) findViewById(R.id.et_ImmuneTag);
+
+		rb_Immune_Yes = (RadioButton) findViewById(R.id.rb_Immune_Yes);
+		rb_Immune_No = (RadioButton) findViewById(R.id.rb_Immune_No);
 
 		sp_province = (Spinner) findViewById(R.id.sp_province);
 		sp_city = (Spinner) findViewById(R.id.sp_city);
@@ -374,6 +387,9 @@ public class ActivityEditOrder extends BaseActivity {
 		btn_submit.setOnClickListener(this);
 		btn_clear.setOnClickListener(this);
 
+		rb_Immune_Yes.setOnClickListener(this);
+		rb_Immune_No.setOnClickListener(this);
+
 		btn_submit.setVisibility(View.GONE);
 		btn_clear.setVisibility(View.GONE);
 
@@ -384,7 +400,9 @@ public class ActivityEditOrder extends BaseActivity {
 		et_QuarantineNum.setEnabled(false);
 		et_QuarantineCount.setEnabled(false);
 		et_ActualCount.setEnabled(false);
-		et_ImmuneTag.setEnabled(false);
+		// et_ImmuneTag.setEnabled(false);
+		rb_Immune_Yes.setEnabled(false);
+		rb_Immune_No.setEnabled(false);
 
 		// 瘦肉精检测结果
 		et_CheckCount.setEnabled(false);
@@ -522,7 +540,14 @@ public class ActivityEditOrder extends BaseActivity {
 				et_QuarantineNum.setText(quar.QuarantineNum);
 				et_QuarantineCount.setText(quar.QuarantineCount);
 				et_ActualCount.setText(quar.ActualCount);
-				et_ImmuneTag.setText(quar.ImmuneTag);
+				// et_ImmuneTag.setText(quar.ImmuneTag);
+				if (quar.ImmuneTag.equals("有")) {
+					rb_Immune_Yes.setChecked(true);
+					rb_Immune_No.setChecked(false);
+				} else {
+					rb_Immune_Yes.setChecked(false);
+					rb_Immune_No.setChecked(true);
+				}
 				isInitObject = true;
 				for (int i = 0; i < listProvinceObject.size(); i++) {
 					if (quar.origin_province_id.equals(listProvinceObject.get(i).ID.toString())) {
@@ -559,7 +584,9 @@ public class ActivityEditOrder extends BaseActivity {
 					et_QuarantineNum.setEnabled(true);
 					et_QuarantineCount.setEnabled(true);
 					et_ActualCount.setEnabled(true);
-					et_ImmuneTag.setEnabled(true);
+					// et_ImmuneTag.setEnabled(true);
+					rb_Immune_Yes.setEnabled(true);
+					rb_Immune_No.setEnabled(true);
 
 					// 瘦肉精检测结果
 					et_CheckCount.setEnabled(true);

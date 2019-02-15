@@ -53,7 +53,7 @@
             android:digits="0123456789"
             android:hint="@string/hint_int"
             android:inputType="number"
-            android:text="" />
+            android:text="0" />
     </LinearLayout>
 
 </LinearLayout>

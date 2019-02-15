@@ -21,6 +21,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -61,7 +62,8 @@ public class ActivityAddOrder extends BaseActivity {
 	EditText et_QuarantineNum;
 	EditText et_QuarantineCount;
 	EditText et_ActualCount;
-	EditText et_ImmuneTag;
+//	EditText et_ImmuneTag;
+	RadioButton rb_Immune_Yes,rb_Immune_No;
 
 	Spinner sp_province, sp_city, sp_county;
 	ArrayAdapter<String> adapterProvince = null;
@@ -146,6 +148,12 @@ public class ActivityAddOrder extends BaseActivity {
 		case R.id.iv_spinner_processcomment:
 			showDialogListView(listProcessComment, et_ProcessComment);
 			break;
+		case R.id.rb_Immune_Yes:
+			rb_Immune_No.setChecked(false);
+			break;
+		case R.id.rb_Immune_No:
+			rb_Immune_Yes.setChecked(false);
+			break;
 		}
 	}
 
@@ -176,7 +184,10 @@ public class ActivityAddOrder extends BaseActivity {
 		et_QuarantineNum = (EditText) findViewById(R.id.et_QuarantineNum);
 		et_QuarantineCount = (EditText) findViewById(R.id.et_QuarantineCount);
 		et_ActualCount = (EditText) findViewById(R.id.et_ActualCount);
-		et_ImmuneTag = (EditText) findViewById(R.id.et_ImmuneTag);
+//		et_ImmuneTag = (EditText) findViewById(R.id.et_ImmuneTag);
+		rb_Immune_Yes = (RadioButton)findViewById(R.id.rb_Immune_Yes);
+		rb_Immune_No = (RadioButton)findViewById(R.id.rb_Immune_No);
+		
 
 		sp_province = (Spinner) findViewById(R.id.sp_province);
 		sp_city = (Spinner) findViewById(R.id.sp_city);
@@ -215,6 +226,8 @@ public class ActivityAddOrder extends BaseActivity {
 		iv_spinner_origin.setOnClickListener(this);
 		iv_spinner_processreason.setOnClickListener(this);
 		iv_spinner_processcomment.setOnClickListener(this);
+		rb_Immune_Yes.setOnClickListener(this);
+		rb_Immune_No.setOnClickListener(this);
 		// tv_DeliveryNum.requestFocus();
 
 	}
@@ -255,9 +268,10 @@ public class ActivityAddOrder extends BaseActivity {
 		if (getText(et_ActualCount).isEmpty()) {
 			return getString(R.string.msg_empty_ActualCount);
 		}
-		if (getText(et_ImmuneTag).isEmpty()) {
-			return getString(R.string.msg_empty_ImmuneTag);
-		}
+		
+//		if (getText(et_ImmuneTag).isEmpty()) {
+//			return getString(R.string.msg_empty_ImmuneTag);
+//		}
 
 		// 瘦肉精检测结果
 		if (getText(et_CheckCount).isEmpty()) {
@@ -302,7 +316,9 @@ public class ActivityAddOrder extends BaseActivity {
 		et_QuarantineNum.setText("");
 		et_QuarantineCount.setText("");
 		et_ActualCount.setText("");
-		et_ImmuneTag.setText("");
+//		et_ImmuneTag.setText("");
+		rb_Immune_Yes.setChecked(true);
+		rb_Immune_No.setChecked(false);
 
 		// 瘦肉精检测结果
 		et_CheckCount.setText("");
@@ -487,7 +503,7 @@ public class ActivityAddOrder extends BaseActivity {
 		json.addProperty("QuarantineNum", getText(et_QuarantineNum));
 		json.addProperty("QuarantineCount", getText(et_QuarantineCount));
 		json.addProperty("ActualCount", getText(et_ActualCount));
-		json.addProperty("ImmuneTag", getText(et_ImmuneTag));
+		json.addProperty("ImmuneTag", rb_Immune_Yes.isChecked()? "有":"无");
 
 		json.addProperty("CheckCount", getText(et_CheckCount));
 		json.addProperty("CheckNegativeCount", getText(et_CheckNegativeCount));

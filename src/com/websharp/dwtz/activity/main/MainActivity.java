@@ -155,14 +155,15 @@ public class MainActivity extends BaseActivity {
 		if (GlobalData.listProvince.size() == 0) {
 			new SJECHttpHandler(cbLocation, MainActivity.this).GetLocation();
 		}
-		
-		if(GlobalData.listButchery.size() == 0){
+
+		if (GlobalData.listButchery.size() == 0) {
 			new SJECHttpHandler(cbButchery, MainActivity.this).getAllButchery();
 		}
 
 		if (new File(Constant.IMAGE_DIR_TAKE_PHOTO).exists()) {
 			FileUtil.DeleteDirectory(new File(Constant.IMAGE_DIR_TAKE_PHOTO));
 		}
+		new SJECHttpHandler(cbGetButchery, this).getButchery();
 	}
 
 	@Override
@@ -219,7 +220,12 @@ public class MainActivity extends BaseActivity {
 			break;
 		case R.id.iv_sjxxxt:
 			// 检疫申报
-			Util.startActivity(MainActivity.this, ActivityDwtzjysbList.class, false);
+			//Util.startActivity(MainActivity.this, ActivityDwtzjysbList.class, false);
+			if (!GlobalData.curUser.Role.equals("JG") && !GlobalData.curUser.Role.equals("GFSY")) {
+				Util.startActivity(MainActivity.this, ActivityDwtzjysbList.class, false);
+			} else {
+				Util.createToast(MainActivity.this, R.string.msg_dialog_role_failed, 3000).show();
+			}
 			break;
 		case R.id.iv_sy:
 			// Util.startActivity(MainActivity.this, ActivityLogin.class,
@@ -386,8 +392,7 @@ public class MainActivity extends BaseActivity {
 		}
 
 	};
-	
-	
+
 	AsyncHttpCallBack cbButchery = new AsyncHttpCallBack() {
 
 		@Override
@@ -443,7 +448,7 @@ public class MainActivity extends BaseActivity {
 	}
 
 	public long startDownloadApk(Context context, String savePath, String url_download) {
-		
+
 		if (new File(savePath).exists()) {
 			new File(savePath).delete();
 		}
@@ -496,4 +501,36 @@ public class MainActivity extends BaseActivity {
 		startActivity(intent);
 	}
 
+
+	AsyncHttpCallBack cbGetButchery = new AsyncHttpCallBack() {
+
+		@Override
+		public void onSuccess(String response) {
+
+			super.onSuccess(response);
+			LogUtil.d("%s", response);
+			JSONObject obj;
+			try {
+				obj = new JSONObject(response);
+
+				if (obj.optString("result").equals("true")) {
+					Gson gson = new Gson();
+					GlobalData.listButcheryByUser  = gson.fromJson(obj.getString("data"), new TypeToken<ArrayList<EntityButchery>>() {
+					}.getType());
+				} else {
+					Util.createToast(MainActivity.this,
+							obj.optString("desc", getString(R.string.msg_failed_getButcheryGroup)), 3000).show();
+				}
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		}
+
+		@Override
+		public void onFailure(String message) {
+			super.onFailure(message);
+			LogUtil.d("%s", message);
+		}
+
+	};
 }
