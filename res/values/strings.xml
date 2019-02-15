@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<resources>
+    <string name="app_name">苏州动物卫生监督信息系统</string>
+    <string name="str_versionName">1.5.3</string>
+    <!-- 提示 -->
+    <string name="msg_dialog_options">请选择</string>
+    <string name="msg_dialog_title">提示</string>
+    <string name="msg_dialog_confirm">确定</string>
+    <string name="msg_dialog_cancel">取消</string>
+    <string name="msg_confirm_control ">确认这个操作吗？</string>
+    <string name="msg_confirm_cancel">确认退出？</string>
+    <string name="msg_control_success">操作成功!</string>
+    <string name="msg_control_success_continue_operator">操作成功,可以继续添加不合格记录.</string>
+    <string name="msg_control_failed">操作失败!</string>
+    <string name="msg_dialog_role_failed">您没有权限进行此操作!</string>
+    <string name="msg_dialog_cancel_success">注销登录成功</string>
+    <!-- 设置 -->
+    <string name="common_config_lbs">请打开定位设置定位模式为 "准确度高"</string>
+    <string name="common_loading">正在进行操作...</string>
+    <string name="common_login_success">登录成功</string>
+    <string name="common_login_failed">登录失败,请检查用户或密码</string>
+    <string name="common_exit_repeat_press">再按一次退出应用程序</string>
+    <!-- 登录&注册 -->
+    <string name="hint_et_username">请输入用户名</string>
+    <string name="hint_et_password">请输入密码</string>
+    <string name="title_label_login_info">登录苏州动物卫生监督信息系统</string>
+    <string name="title_label_login">登录</string>
+    <string name="title_label_regist">注册</string>
+    <string name="title_label_forget_pwd">忘记密码</string>
+    <string name="title_label_loginname">手机号</string>
+    <string name="title_label_password">密码</string>
+    <string name="title_label_password_confirm">确认密码</string>
+    <string name="title_label_verify_code">验证码</string>
+    <string name="msg_error_value_telephone">请正确输入手机号码</string>
+    <string name="msg_error_value_verify_code">请输入短信验证码</string>
+    <string name="msg_error_password">请输入密码</string>
+    <string name="msg_error_password_confirm">请输入确认密码</string>
+    <string name="msg_error_password_repeat">两次密码输入不一致,请重新输入!</string>
+    <string name="msg_error_regist_success">注册成功,现在返回登录界面!</string>
+    <!-- 其他 -->
+    <string name="lab_setting_login_name">登录名:%1$s</string>
+    <string name="lab_setting_user_name">用户名:%1$s</string>
+    <string name="lab_setting_user_telephone">电话:%1$s</string>
+    <!-- 按钮 -->
+    <string name="btn_confirm">确定</string>
+    <string name="btn_clear">清空</string>
+    <!-- 添加工单 -->
+    <string name="lab_addorder_part_1">进场生猪情况</string>
+    <string name="lab_addorder_SendTime">进场日期</string>
+    <string name="lab_addorder_DeliveryNum">流水号</string>
+    <string name="lab_addorder_GoodsOwner">货主</string>
+    <string name="lab_addorder_Origin">产地</string>
+    <string name="lab_addorder_QuarantineNum">检疫证号码</string>
+    <string name="lab_addorder_QuarantineCount">检疫证明数(头)</string>
+    <string name="lab_addorder_ActualCount">实际进场数(头)</string>
+    <string name="lab_addorder_ImmuneTag">免疫标识</string>
+    <string name="lab_addorder_part_2">瘦肉精检测结果</string>
+    <string name="lab_addorder_CheckCount">监测头数</string>
+    <string name="lab_addorder_CheckNegativeCount">阴性数</string>
+    <string name="lab_addorder_CheckPositiveCount">阳性数</string>
+    <string name="lab_addorder_part_3">检疫情况</string>
+    <string name="lab_addorder_QualiedCount">准宰头数</string>
+    <string name="lab_addorder_UnqualiedCount">不合格头数</string>
+    <string name="lab_addorder_ProcessReason">处理原因</string>
+    <string name="lab_addorder_ProcessComment">处理意见</string>
+    <string name="lab_addorder_OfficalVeterSign">官方兽医签名</string>
+    <string name="lab_addorder_Remark">备注</string>
+    <string name="hint_int">没有可填0</string>
+    <string name="msg_empty_SendTime">进场日期不能为空!</string>
+    <string name="msg_empty_DeliveryNum">货单号不能为空!</string>
+    <string name="msg_empty_GoodsOwner">货主不能为空!</string>
+    <string name="msg_empty_Origin">产地不能为空!</string>
+    <string name="msg_empty_QuarantineNum">检疫证号码不能为空!</string>
+    <string name="msg_empty_QuarantineCount">检疫证明数(头)不能为空!</string>
+    <string name="msg_empty_ActualCount">实际进场数(头)不能为空!</string>
+    <string name="msg_empty_ImmuneTag">免疫标识不能为空!</string>
+    <string name="msg_empty_part_2">瘦肉精检测结果</string>
+    <string name="msg_empty_CheckCount">监测头数不能为空!</string>
+    <string name="msg_empty_CheckNegativeCount">阴性数不能为空,没有可填0!</string>
+    <string name="msg_empty_CheckPositiveCount">阳性数不能为空,没有可填0!</string>
+    <string name="msg_empty_part_3">检疫情况</string>
+    <string name="msg_empty_QualiedCount">准宰头数不能为空,没有可填0!</string>
+    <string name="msg_empty_UnqualiedCount">不合格头数不能为空,没有可填0!</string>
+    <string name="msg_empty_ProcessReason">处理原因不能为空!</string>
+    <string name="msg_empty_ProcessComment">处理意见不能为空!</string>
+    <string name="msg_empty_OfficalVeterSign">官方兽医签名不能为空!</string>
+    <string name="msg_empty_Remark">备注</string>
+    <string name="msg_empty_image_size_0">必须至少上传一张图片!</string>
+    <string name="msg_failed_getlsno">生成流水号失败,请返回上级界面重新进入!</string>
+    <string name="msg_failed_getButcheryGroup">获取屠宰小组失败!</string>
+    <!-- 添加工单结束 -->
+    <!-- 添加不合格记录 -->
+    <string name="lab_addinvalid_UnqualiedScanCode">不合格扫描码</string>
+    <string name="lab_addinvalid_UnqualiedScanCode_2">不合格扫描码2</string>
+    <string name="lab_addinvalid_ProcessReason">处理原因</string>
+    <string name="lab_addinvalid_ProcessComment">处理意见</string>
+    <string name="lab_addinvalid_Remark">备注</string>
+    <string name="msg_empty_UnqualiedScanCode">不合格扫描码不能为空!</string>
+    <!-- 添加不合格记录结束 -->
+    <!-- 添加分销检疫证申请 -->
+    <string name="msg_empty_breed">品种不能为空!</string>
+    <string name="msg_empty_old_qc_no">原检疫证号不能为空!</string>
+    <string name="msg_empty_breedforelse">其它品种名称不能为空!</string>
+     <string name="msg_empty_old_distribution_count ">原检疫证数量不能为空!</string>
+    <string name="msg_empty_distribution_target_address">分销目的地不能为空!</string>
+    <string name="msg_empty_distribution_count">分销数量不能为空!</string>
+    <!--添加分销检疫证申请结束  -->
+    <string name="msg_error_pic_send_take">提取照片失败,请检查sd卡或重新拍报/选取照片</string>
+    
+    
+    <string name="common_downloading">正在下载[%1$s%%]</string>
+</resources>

@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingLeft="20dip"
+    android:paddingRight="20dip" >
+
+    <TextView
+        style="@style/style_textview_common"
+        android:layout_width="match_parent"
+        android:text="@string/lab_addorder_part_1" />
+
+    <LinearLayout style="@style/style_layout_form" >
+
+        <TextView
+            style="@style/style_textview_common"
+            android:text="@string/lab_addorder_SendTime" />
+
+        <EditText
+            android:id="@+id/et_SendTime"
+            style="@style/style_edittext_form"
+            android:text="" />
+    </LinearLayout>
+
+    <LinearLayout style="@style/style_layout_form" >
+
+        <TextView
+            style="@style/style_textview_common"
+            android:text="@string/lab_addorder_DeliveryNum" />
+
+        <TextView
+            android:id="@+id/et_DeliveryNum"
+            style="@style/style_edittext_form"
+            android:gravity="center_vertical"
+            android:text="" />
+    </LinearLayout>
+
+    <LinearLayout style="@style/style_layout_form" >
+
+        <TextView
+            style="@style/style_textview_common"
+            android:text="@string/lab_addorder_GoodsOwner" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <EditText
+                android:id="@+id/et_GoodsOwner"
+                style="@style/style_edittext_form"
+                android:layout_weight="10"
+                android:text="" />
+
+            <ImageView
+                android:id="@+id/iv_spinner_goodsowner"
+                android:layout_width="35dip"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:padding="5dip"
+                android:scaleType="fitCenter"
+                android:src="@drawable/arrow_spinner" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout style="@style/style_layout_form" >
+
+        <TextView
+            style="@style/style_textview_common"
+            android:text="@string/lab_addorder_Origin" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <EditText
+                android:id="@+id/et_Origin"
+                style="@style/style_edittext_form"
+                android:layout_weight="10"
+                android:text="" />
+
+            <ImageView
+                android:id="@+id/iv_spinner_origin"
+                android:layout_width="35dip"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:padding="5dip"
+                android:scaleType="fitCenter"
+                android:src="@drawable/arrow_spinner" />
+
+           
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout style="@style/style_layout_form" >
+
+        <TextView
+            style="@style/style_textview_common"
+            android:text="@string/lab_addorder_QuarantineNum" />
+
+        <EditText
+            android:id="@+id/et_QuarantineNum"
+            style="@style/style_edittext_form"
+            android:text="" />
+    </LinearLayout>
+
+    <LinearLayout style="@style/style_layout_form" >
+
+        <TextView
+            style="@style/style_textview_common"
+            android:text="@string/lab_addorder_QuarantineCount" />
+
+        <EditText
+            android:id="@+id/et_QuarantineCount"
+            style="@style/style_edittext_form"
+            android:digits="0123456789"
+            android:hint="@string/hint_int"
+            android:inputType="number"
+            android:text="" />
+    </LinearLayout>
+
+    <LinearLayout style="@style/style_layout_form" >
+
+        <TextView
+            style="@style/style_textview_common"
+            android:text="@string/lab_addorder_ActualCount" />
+
+        <EditText
+            android:id="@+id/et_ActualCount"
+            style="@style/style_edittext_form"
+            android:digits="0123456789"
+            android:hint="@string/hint_int"
+            android:inputType="number"
+            android:text="" />
+    </LinearLayout>
+
+    <LinearLayout style="@style/style_layout_form" >
+
+        <TextView
+            style="@style/style_textview_common"
+            android:text="@string/lab_addorder_ImmuneTag" />
+
+        <EditText
+            android:id="@+id/et_ImmuneTag"
+            style="@style/style_edittext_form"
+            android:text="" />
+    </LinearLayout>
+
+</LinearLayout>

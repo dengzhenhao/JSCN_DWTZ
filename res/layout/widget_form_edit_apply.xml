@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingLeft="20dip"
+    android:paddingRight="20dip" >
+
+    <LinearLayout
+        style="@style/style_layout_form"
+        android:layout_height="@dimen/height_title"
+        android:gravity="center_vertical|right" >
+
+        <ImageView
+            android:id="@+id/iv_camera"
+            android:layout_width="@dimen/height_title"
+            android:layout_height="@dimen/height_title"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/selector_common_layout_trans"
+            android:padding="15dip"
+            android:scaleType="fitCenter"
+            android:src="@drawable/icon_camera" />
+    </LinearLayout>
+
+    <LinearLayout style="@style/style_layout_form" >
+
+        <TextView
+            style="@style/style_textview_common"
+            android:text="状态" />
+
+        <TextView
+            android:id="@+id/tv_Status"
+            style="@style/style_textview_common"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="20dip"
+            android:gravity="left|center_vertical"
+            android:text="" />
+    </LinearLayout>
+
+    <LinearLayout style="@style/style_layout_form" >
+
+        <TextView
+            style="@style/style_textview_common"
+            android:text="@string/lab_addorder_DeliveryNum" />
+
+        <TextView
+            android:id="@+id/tv_LsNo"
+            style="@style/style_textview_common"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="20dip"
+            android:gravity="left|center_vertical"
+            android:text="" />
+    </LinearLayout>
+
+    <LinearLayout style="@style/style_layout_form" >
+
+        <TextView
+            style="@style/style_textview_common"
+            android:text="分销单位名称" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <!--
+                 <TextView
+                android:id="@+id/et_distribution_company_name"
+                style="@style/style_edittext_form"
+                android:layout_weight="10"
+                android:text="" />
+            -->
+
+            <TextView
+                android:id="@+id/tv_distribution_company_name"
+                style="@style/style_textview_common"
+                android:layout_width="wrap_content"
+                android:layout_marginLeft="20dip"
+                android:gravity="left|center_vertical"
+                android:text="" />
+
+            <ImageView
+                android:id="@+id/iv_spinner_distribution_company_name"
+                android:layout_width="35dip"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:padding="5dip"
+                android:scaleType="fitCenter"
+                android:src="@drawable/arrow_spinner"
+                android:visibility="gone" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout style="@style/style_layout_form" >
+
+        <TextView
+            style="@style/style_textview_common"
+            android:text="品种" />
+
+        <TextView
+            android:id="@+id/tv_breed"
+            style="@style/style_textview_common"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="20dip"
+            android:gravity="left|center_vertical"
+            android:text="" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dip"
+            android:layout_marginLeft="20dip"
+            android:visibility="gone" >
+
+            <Spinner
+                android:id="@+id/sp_breed"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/shape_input"
+                android:gravity="center"
+                android:paddingLeft="5dip" />
+
+            <ImageView
+                android:layout_width="10dip"
+                android:layout_height="10dip"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="1dip"
+                android:layout_marginRight="1dip"
+                android:background="@drawable/icon_spinner_corner" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout style="@style/style_layout_form" >
+
+        <TextView
+            style="@style/style_textview_common"
+            android:text="原检疫证号" />
+
+        <!--
+             <EditText
+            android:id="@+id/et_old_qc_no"
+            style="@style/style_edittext_form"
+            android:text="" />
+        -->
+
+        <TextView
+            android:id="@+id/tv_old_qc_no"
+            style="@style/style_textview_common"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="20dip"
+            android:gravity="left|center_vertical"
+            android:text="" />
+    </LinearLayout>
+    
+     <LinearLayout style="@style/style_layout_form" >
+
+        <TextView
+            style="@style/style_textview_common"
+            android:text="原检疫证数量(kg)" />
+
+        <!--
+             <EditText
+            android:id="@+id/et_old_qc_no"
+            style="@style/style_edittext_form"
+            android:text="" />
+        -->
+
+        <TextView
+            android:id="@+id/tv_0ld_distribution_count"
+            style="@style/style_textview_common"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="20dip"
+            android:gravity="left|center_vertical"
+            android:text="" />
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/style_layout_form"
+        android:visibility="gone" >
+
+        <TextView
+            style="@style/style_textview_common"
+            android:text="" />
+
+        <TextView
+            android:id="@+id/tv_add_detail"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_form_row"
+            android:layout_gravity="right"
+            android:gravity="center_vertical|right"
+            android:text="点击添加分销记录"
+            android:textColor="@color/color_bg_common"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_detail"
+        style="@style/style_layout_form"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone" >
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/style_layout_form"
+        android:layout_marginTop="20dip"
+        android:gravity="center"
+        android:visibility="gone" >
+
+        <Button
+            android:id="@+id/btn_clear"
+            style="@style/Style_Button"
+            android:layout_width="125dip"
+            android:layout_height="35dip"
+            android:text="@string/btn_clear" />
+
+        <Button
+            android:id="@+id/btn_submit"
+            style="@style/Style_Button"
+            android:layout_width="125dip"
+            android:layout_height="35dip"
+            android:layout_marginLeft="10dip"
+            android:text="提交申请" />
+    </LinearLayout>
+
+</LinearLayout>

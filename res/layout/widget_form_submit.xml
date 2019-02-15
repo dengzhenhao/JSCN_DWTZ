@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingLeft="20dip"
+    android:paddingRight="20dip" >
+
+    <TextView
+        style="@style/style_textview_common"
+        android:layout_width="match_parent"
+        android:text="" />
+
+    <LinearLayout style="@style/style_layout_form" >
+
+        <TextView
+            style="@style/style_textview_common"
+            android:text="@string/lab_addorder_OfficalVeterSign" />
+
+        <EditText
+            android:id="@+id/et_OfficalVeterSign"
+            style="@style/style_edittext_form"
+            android:text="" />
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/style_layout_form"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            style="@style/style_textview_common"
+            android:layout_gravity="top"
+            android:text="@string/lab_addorder_Remark" />
+
+        <EditText
+            android:id="@+id/et_Remark"
+            style="@style/style_edittext_form"
+            android:layout_height="wrap_content"
+            android:gravity="top"
+            android:lines="5"
+            android:maxLines="5"
+            android:singleLine="false"
+            android:text="" />
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/style_layout_form"
+        android:layout_marginTop="10dip"
+        android:gravity="center" 
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/btn_clear"
+            style="@style/Style_Button"
+            android:layout_width="125dip"
+            android:layout_height="35dip"
+            android:text="@string/btn_clear" />
+
+        <Button
+            android:id="@+id/btn_submit"
+            style="@style/Style_Button"
+            android:layout_width="125dip"
+            android:layout_height="35dip"
+            android:layout_marginTop="10dip"
+            android:text="@string/btn_confirm" />
+        
+        <Button
+            android:id="@+id/btn_unqualied_list"
+            style="@style/Style_Button"
+            android:layout_width="125dip"
+            android:visibility="visible"
+            android:layout_height="35dip"
+            android:layout_marginTop="10dip"
+            android:text="不合格登记目录" />
+    </LinearLayout>
+
+</LinearLayout>

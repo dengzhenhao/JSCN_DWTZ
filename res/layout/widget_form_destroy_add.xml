@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingLeft="20dip"
+    android:paddingRight="20dip" >
+
+    <LinearLayout style="@style/style_layout_form" >
+
+        <TextView
+            style="@style/style_textview_common"
+            android:text="@string/lab_addorder_DeliveryNum" />
+
+        <TextView
+            android:id="@+id/tv_DestroyNum"
+            style="@style/style_textview_common"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="20dip"
+            android:gravity="left|center_vertical"
+            android:text="" />
+    </LinearLayout>
+    
+    <LinearLayout style="@style/style_layout_form" >
+
+        <TextView
+            style="@style/style_textview_common"
+            android:text="销毁数量" />
+
+        <EditText
+            android:id="@+id/et_DestroyTotalCount"
+            style="@style/style_edittext_form"
+            android:digits="0123456789"
+            android:hint="@string/hint_int"
+            android:inputType="number"
+            android:text="" />
+    </LinearLayout>
+    
+    
+    <LinearLayout style="@style/style_layout_form"
+        android:id="@+id/layout_unqualied_count" 
+        android:visibility="gone">
+
+        <TextView
+            style="@style/style_textview_common"
+            android:text="已添加不合格" />
+
+        <EditText
+            android:id="@+id/et_UnqualiedCount"
+            style="@style/style_edittext_form"
+            android:inputType="number"
+            android:enabled="false"
+            android:text="0" />
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/style_layout_form"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            style="@style/style_textview_common"
+            android:layout_gravity="top"
+            android:text="@string/lab_addinvalid_Remark" />
+
+        <EditText
+            android:id="@+id/et_Remark"
+            style="@style/style_edittext_form"
+            android:layout_height="wrap_content"
+            android:gravity="top"
+            android:lines="5"
+            android:maxLines="5"
+            android:singleLine="false"
+            android:text="" />
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/style_layout_form"
+        android:layout_marginTop="10dip"
+        android:gravity="center" >
+
+        <Button
+            android:id="@+id/btn_submit"
+            style="@style/Style_Button"
+            android:layout_width="125dip"
+            android:layout_height="35dip"
+            android:layout_marginLeft="10dip"
+            android:text="@string/btn_confirm" />
+        
+        <Button
+            android:id="@+id/btn_complete"
+            style="@style/Style_Button"
+            android:layout_width="125dip"
+            android:layout_height="35dip"
+            android:layout_marginLeft="10dip"
+            android:visibility="gone" 
+            android:text="完成销毁" />
+        
+        <Button
+            android:id="@+id/btn_choose_unqualied"
+            style="@style/Style_Button"
+            android:layout_width="125dip"
+            android:layout_height="35dip"
+            android:layout_marginLeft="10dip"
+            android:visibility="gone" 
+            android:text="选择不合格记录" />
+    </LinearLayout>
+
+</LinearLayout>

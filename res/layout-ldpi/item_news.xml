@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/selector_common_layout_trans"
+    android:gravity="center_vertical"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingBottom="5dip"
+        android:paddingLeft="5dip"
+        android:paddingRight="5dip"
+        android:paddingTop="5dip" >
+
+        <ImageView
+            android:id="@+id/iv_title"
+            android:layout_width="80dip"
+            android:layout_height="80dip"
+            android:src="@drawable/tmp_2" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="5dip"
+            android:paddingBottom="5dip"
+            android:layout_marginLeft="10dip"
+            android:layout_weight="10"
+            android:orientation="vertical" >
+
+
+                <TextView
+                    android:id="@+id/tv_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:text="认真贯彻落实十七届三中全会精神"
+                    android:textColor="#000"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dip"
+                android:ellipsize="end"
+                android:layout_below="@+id/tv_title"
+                android:lines="2"
+                android:maxLines="2"
+                android:singleLine="false"
+                android:text="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                android:textColor="#787878"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/tv_publishtime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginTop="3dip"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:text="2015-7-24 12:01"
+                android:textColor="#787878"
+                android:textSize="10sp" />
+        </RelativeLayout>
+
+        <ImageView
+            android:layout_width="20dip"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dip"
+            android:layout_weight="1"
+            android:scaleType="fitCenter"
+            android:src="@drawable/arrow" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:background="#f0f0f0" >
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/layout_top"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="10"
+        android:gravity="center_horizontal"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:id="@+id/layout_widget"
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/height_title"
+            android:background="@color/color_bg_title_bar"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:id="@+id/iv_icon"
+                android:layout_width="50dip "
+                android:layout_height="match_parent"
+                android:padding="10dip"
+                android:scaleType="fitCenter"
+                android:src="@drawable/icon" >
+            </ImageView>
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/iv_icon"
+                android:text="@string/app_name"
+                android:textColor="@android:color/white"
+                android:textSize="13sp" />
+            
+            <TextView
+                android:id="@+id/tv_login"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:text="登录"
+                android:minWidth="50dip"
+                android:gravity="center"
+                android:layout_marginRight="10dip"
+                android:textColor="@android:color/white"
+                android:textSize="13sp" />
+        </RelativeLayout>
+
+        <com.handmark.pulltorefresh.library.PullToRefreshListView
+        xmlns:ptr="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/lv_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white"
+        android:cacheColorHint="#00000000"
+        android:divider="@null"
+        android:fastScrollEnabled="true"
+        android:scrollbars="none" />
+        
+        
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="81dip"
+        android:layout_weight="1"
+        android:background="#082c4e"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="10dip" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:weightSum="6" >
+
+            <ImageView
+                android:id="@+id/iv_ycspglxt"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:scaleType="fitCenter"
+                android:src="@drawable/icon_menu_1" />
+
+            <ImageView
+                android:id="@+id/iv_sjxxxt"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:scaleType="fitCenter"
+                android:src="@drawable/icon_menu_2" />
+            
+            <ImageView
+                android:id="@+id/iv_fxxt"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:scaleType="fitCenter"
+                android:src="@drawable/icon_menu_6" />
+
+            <ImageView
+                android:id="@+id/iv_sy"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:scaleType="fitCenter"
+                android:src="@drawable/icon_menu_3" />
+
+            <ImageView
+                android:id="@+id/iv_whhcljgxt"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:scaleType="fitCenter"
+                android:src="@drawable/icon_menu_4" />
+
+            <ImageView
+                android:id="@+id/iv_tzc"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:scaleType="fitCenter"
+                android:src="@drawable/icon_menu_5" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

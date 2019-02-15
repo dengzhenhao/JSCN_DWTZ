@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="150dip"
+        android:layout_height="35dip" >
+
+        <Spinner
+            android:id="@+id/sp_butchery"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/shape_input"
+            android:gravity="center"
+            android:paddingLeft="10dip"
+            android:textAlignment="center" />
+
+        <ImageView
+            android:layout_width="10dip"
+            android:layout_height="10dip"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="3dip"
+            android:layout_marginRight="3dip"
+            android:background="@drawable/icon_spinner_corner" />
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/btn_unqualied"
+        style="@style/Style_Button"
+        android:layout_width="150dip"
+        android:layout_height="35dip"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="20dip"
+        android:text="进场登记表" />
+
+    <Button
+        android:id="@+id/btn_destroy"
+        style="@style/Style_Button"
+        android:layout_width="150dip"
+        android:layout_height="35dip"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="20dip"
+        android:text="销毁病死猪" />
+    
+    <Button
+        android:id="@+id/btn_destroy_history"
+        style="@style/Style_Button"
+        android:layout_width="150dip"
+        android:layout_height="35dip"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="20dip"
+        android:text="历史销毁记录" />
+    
+    <Button
+        android:id="@+id/btn_statistics"
+        style="@style/Style_Button"
+        android:layout_width="150dip"
+        android:layout_height="35dip"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="20dip"
+        android:text="统计报表" />
+
+</LinearLayout>

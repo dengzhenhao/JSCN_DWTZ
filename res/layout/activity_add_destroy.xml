@@ -1,0 +1,139 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:id="@+id/layout_widget"
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/height_title"
+            android:background="@color/color_bg_title_bar"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+
+            <LinearLayout
+                android:id="@+id/layout_back"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/selector_common_layout_trans"
+                android:clickable="true"
+                android:gravity="center" >
+
+                <ImageView
+                    android:id="@+id/iv_back"
+                    android:layout_width="50dip"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:paddingLeft="20dip"
+                    android:paddingRight="20dip"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/icon_back" >
+                </ImageView>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="添加销毁记录"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/text_size_title" />
+        </RelativeLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#fff"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:paddingBottom="10dip" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dip"
+                    android:layout_marginTop="1px"
+                    android:background="@color/color_bg_common"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:paddingTop="20dip" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:textColor="@android:color/white" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dip"
+                        android:text=""
+                        android:textColor="@android:color/white" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dip"
+                        android:text=""
+                        android:textColor="@android:color/white" />
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height_title_100"
+                    android:background="@color/color_bg_main_control_bar" >
+
+                    <LinearLayout
+                        android:id="@+id/layout_1"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/height_title"
+                        android:background="@color/color_bg_common"
+                        android:orientation="horizontal" >
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/height_title"
+                        android:layout_below="@+id/layout_1"
+                        android:gravity="center_vertical|right" >
+                        
+                        <ImageView
+                            android:id="@+id/iv_camera"
+                            android:layout_width="@dimen/height_title"
+                            android:layout_height="@dimen/height_title"
+                            android:layout_alignParentRight="true"
+                            android:background="@drawable/selector_common_layout_trans"
+                            android:padding="15dip"
+                            android:scaleType="fitCenter"
+                            android:visibility="gone"
+                            android:src="@drawable/icon_camera" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="60dip"
+                        android:layout_height="60dip"
+                        android:layout_centerInParent="true"
+                        android:background="@drawable/icon_user" />
+                </RelativeLayout>
+
+                <include layout="@layout/widget_form_destroy_add" />
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+
+</RelativeLayout>

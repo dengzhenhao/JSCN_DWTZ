@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/layout_widget"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/height_title"
+        android:background="@color/color_bg_title_bar"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+
+        <LinearLayout
+            android:id="@+id/layout_back"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/selector_common_layout_trans"
+            android:clickable="true"
+            android:gravity="center" >
+
+            <ImageView
+                android:id="@+id/iv_back"
+                android:layout_width="50dip"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:paddingLeft="20dip"
+                android:paddingRight="20dip"
+                android:scaleType="fitCenter"
+                android:src="@drawable/icon_back" >
+            </ImageView>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="关联屠宰人员"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/text_size_title" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="10dip" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="30dip"
+                android:background="@color/color_bg_common"
+                android:gravity="center_vertical"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text=""
+                    android:textColor="@android:color/white" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3"
+                    android:gravity="center"
+                    android:text="人员姓名"
+                    android:textColor="@android:color/white" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:gravity="center"
+                    android:text="工号"
+                    android:textColor="@android:color/white" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3"
+                    android:gravity="center"
+                    android:text="联系电话"
+                    android:textColor="@android:color/white" />
+            </LinearLayout>
+
+            <include layout="@layout/item_meatman" />
+
+            <include layout="@layout/item_meatman" />
+
+            <include layout="@layout/item_meatman" />
+
+            <include layout="@layout/item_meatman" />
+
+            <include layout="@layout/item_meatman" />
+
+            <LinearLayout
+                style="@style/style_layout_form"
+                android:layout_marginTop="10dip"
+                android:gravity="center" >
+
+                <Button
+                    android:id="@+id/btn_back"
+                    style="@style/Style_Button"
+                    android:layout_width="125dip"
+                    android:layout_height="35dip"
+                    android:text="返回" />
+
+                <Button
+                    android:id="@+id/btn_submit"
+                    style="@style/Style_Button"
+                    android:layout_width="125dip"
+                    android:layout_height="35dip"
+                    android:layout_marginLeft="10dip"
+                    android:text="关联" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

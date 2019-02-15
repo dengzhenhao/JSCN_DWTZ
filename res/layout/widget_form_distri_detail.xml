@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingLeft="20dip"
+    android:paddingRight="20dip" >
+
+    <TextView
+        style="@style/style_textview_common"
+        android:layout_width="match_parent"
+        android:text="添加动物产品分销明细" />
+
+    <LinearLayout style="@style/style_layout_form"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            style="@style/style_textview_common"
+            android:text="分销目的地" 
+            
+            android:layout_gravity="top"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <EditText
+                android:id="@+id/et_distribution_target_address"
+                style="@style/style_edittext_form"
+                android:layout_height="wrap_content"
+                android:layout_weight="10"
+                 android:lines="3"
+            android:maxLines="3"
+            android:singleLine="false"
+                android:text="" />
+
+            <ImageView
+                android:id="@+id/iv_spinner_distribution_target_address"
+                android:layout_width="35dip"
+                android:layout_height="35dip"
+                android:layout_weight="1"
+                android:padding="5dip"
+                android:scaleType="fitCenter"
+                android:src="@drawable/arrow_spinner" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout style="@style/style_layout_form" >
+
+        <TextView
+            style="@style/style_textview_common"
+            android:text="分销数量(kg)" />
+
+        <EditText
+            android:id="@+id/et_distribution_count"
+            style="@style/style_edittext_form"
+            android:inputType="numberDecimal"
+            android:text="" />
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/style_layout_form"
+        android:layout_marginTop="10dip"
+        android:gravity="center" >
+
+        <Button
+            android:id="@+id/btn_clear"
+            style="@style/Style_Button"
+            android:layout_width="125dip"
+            android:layout_height="35dip"
+            android:text="@string/btn_clear" />
+
+        <Button
+            android:id="@+id/btn_submit"
+            style="@style/Style_Button"
+            android:layout_width="125dip"
+            android:layout_height="35dip"
+            android:layout_marginLeft="10dip"
+            android:text="确定添加" />
+    </LinearLayout>
+
+</LinearLayout>

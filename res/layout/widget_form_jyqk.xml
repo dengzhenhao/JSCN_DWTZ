@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingLeft="20dip"
+    android:paddingRight="20dip" >
+
+    <TextView
+        style="@style/style_textview_common"
+        android:layout_width="match_parent"
+        android:text="@string/lab_addorder_part_3" />
+
+    <LinearLayout style="@style/style_layout_form" >
+
+        <TextView
+            style="@style/style_textview_common"
+            android:text="@string/lab_addorder_QualiedCount" />
+
+        <EditText
+            android:id="@+id/et_QualiedCount"
+            style="@style/style_edittext_form"
+            android:digits="0123456789"
+            android:hint="@string/hint_int"
+            android:inputType="number"
+            android:text="" />
+    </LinearLayout>
+
+    <LinearLayout style="@style/style_layout_form" >
+
+        <TextView
+            style="@style/style_textview_common"
+            android:text="@string/lab_addorder_UnqualiedCount" />
+
+        <EditText
+            android:id="@+id/et_UnqualiedCount"
+            style="@style/style_edittext_form"
+            android:digits="0123456789"
+            android:hint="@string/hint_int"
+            android:inputType="number"
+            android:text="" />
+    </LinearLayout>
+
+    <LinearLayout style="@style/style_layout_form" >
+
+        <TextView
+            style="@style/style_textview_common"
+            android:text="@string/lab_addorder_ProcessReason" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <EditText
+                android:id="@+id/et_ProcessReason"
+                style="@style/style_edittext_form"
+                android:layout_weight="10"
+                android:text="" />
+
+            <ImageView
+                android:id="@+id/iv_spinner_processreason"
+                android:layout_width="35dip"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:padding="5dip"
+                android:scaleType="fitCenter"
+                android:src="@drawable/arrow_spinner" />
+
+        
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout style="@style/style_layout_form" >
+
+        <TextView
+            style="@style/style_textview_common"
+            android:text="@string/lab_addorder_ProcessComment" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <EditText
+                android:id="@+id/et_ProcessComment"
+                style="@style/style_edittext_form"
+                android:layout_weight="10"
+                android:text="" />
+
+            <ImageView
+                android:id="@+id/iv_spinner_processcomment"
+                android:layout_width="35dip"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:padding="5dip"
+                android:scaleType="fitCenter"
+                android:src="@drawable/arrow_spinner" />
+
+          
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

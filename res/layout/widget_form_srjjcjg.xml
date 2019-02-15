@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingLeft="20dip"
+    android:paddingRight="20dip" >
+
+    <TextView
+        style="@style/style_textview_common"
+        android:layout_width="match_parent"
+        android:text="@string/lab_addorder_part_2" />
+
+    <LinearLayout style="@style/style_layout_form" >
+
+        <TextView
+            style="@style/style_textview_common"
+            android:text="@string/lab_addorder_CheckCount" />
+
+        <EditText
+            android:id="@+id/et_CheckCount"
+            style="@style/style_edittext_form"
+            android:digits="0123456789"
+            android:inputType="number"
+            android:hint="@string/hint_int"
+            android:text="" />
+    </LinearLayout>
+
+    <LinearLayout style="@style/style_layout_form" >
+
+        <TextView
+            style="@style/style_textview_common"
+            android:text="@string/lab_addorder_CheckNegativeCount" />
+
+        <EditText
+            android:id="@+id/et_CheckNegativeCount"
+            style="@style/style_edittext_form"
+            android:digits="0123456789"
+            android:inputType="number"
+            android:hint="@string/hint_int"
+            android:text="" />
+    </LinearLayout>
+
+    <LinearLayout style="@style/style_layout_form" >
+
+        <TextView
+            style="@style/style_textview_common"
+            android:text="@string/lab_addorder_CheckPositiveCount" />
+
+        <EditText
+            android:id="@+id/et_CheckPositiveCount"
+            style="@style/style_edittext_form"
+            android:digits="0123456789"
+            android:hint="@string/hint_int"
+            android:inputType="number"
+            android:text="" />
+    </LinearLayout>
+
+</LinearLayout>

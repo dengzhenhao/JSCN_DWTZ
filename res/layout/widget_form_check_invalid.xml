@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingLeft="20dip"
+    android:paddingRight="20dip" >
+    
+    
+    <LinearLayout style="@style/style_layout_form" >
+
+        <TextView
+            style="@style/style_textview_common"
+            android:text="" />
+
+        <TextView
+            style="@style/style_textview_common"
+            android:text=""
+            android:layout_marginLeft="20dip"
+            android:gravity="left|center_vertical"  />
+    </LinearLayout>
+
+    <LinearLayout style="@style/style_layout_form" >
+
+        <TextView
+            style="@style/style_textview_common"
+            android:text="@string/lab_addinvalid_UnqualiedScanCode" />
+
+        <TextView
+            android:id="@+id/tv_UnqualiedScanCode"
+            style="@style/style_edittext_form"
+            android:background="@null"
+            android:gravity="center_vertical"
+            android:text="" />
+    </LinearLayout>
+    
+
+    <LinearLayout style="@style/style_layout_form" >
+
+        <TextView
+            style="@style/style_textview_common"
+            android:text="@string/lab_addorder_SendTime" />
+
+        <TextView
+            android:id="@+id/tv_SendTime"
+            style="@style/style_edittext_form"
+            android:background="@null"
+            android:gravity="center_vertical"
+            android:text="" />
+    </LinearLayout>
+    
+     <LinearLayout style="@style/style_layout_form" >
+
+        <TextView
+            style="@style/style_textview_common"
+            android:text="@string/lab_addorder_GoodsOwner" />
+
+        <TextView
+            android:id="@+id/tv_GoodsOwner" 
+            style="@style/style_edittext_form"
+            android:background="@null"
+            android:gravity="center_vertical"
+            android:text="" />
+    </LinearLayout>
+    
+      <LinearLayout style="@style/style_layout_form" >
+
+        <TextView
+            style="@style/style_textview_common"
+            android:text="@string/lab_addorder_Origin" />
+
+         <TextView
+            android:id="@+id/tv_Origin"
+            style="@style/style_edittext_form"
+            android:background="@null"
+            android:gravity="center_vertical"
+            android:text="" />
+    </LinearLayout>
+    
+      
+      <LinearLayout style="@style/style_layout_form" >
+
+        <TextView
+            style="@style/style_textview_common"
+            android:text="@string/lab_addorder_QuarantineNum" />
+
+        <TextView
+            android:id="@+id/tv_QuarantineNum"
+            style="@style/style_edittext_form"
+            android:background="@null"
+            android:gravity="center_vertical"
+            android:text="" />
+    </LinearLayout>
+    
+      
+      
+    
+      
+      <LinearLayout style="@style/style_layout_form" 
+          android:minHeight="@dimen/height_form_row"
+          android:layout_height="wrap_content">
+
+        <TextView
+            style="@style/style_textview_common"
+            android:text="@string/lab_addorder_ProcessReason" />
+
+        <TextView
+            android:id="@+id/tv_ProcessReason"
+            style="@style/style_edittext_form"
+            android:background="@null"
+            android:minHeight="30dip"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:text="" />
+    </LinearLayout>
+    
+      
+      <LinearLayout style="@style/style_layout_form" >
+
+        <TextView
+            style="@style/style_textview_common"
+            android:text="@string/lab_addorder_ProcessComment" />
+
+        <TextView
+            android:id="@+id/tv_ProcessComment"
+            style="@style/style_edittext_form"
+            android:background="@null"
+            android:minHeight="30dip"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:text="" />
+    </LinearLayout>
+    
+      <LinearLayout style="@style/style_layout_form" >
+
+        <TextView
+            style="@style/style_textview_common"
+            android:text="@string/lab_addorder_ImmuneTag" />
+
+        <TextView
+            android:id="@+id/tv_ImmuneTag"
+            style="@style/style_edittext_form"
+            android:background="@null"
+            android:gravity="center_vertical"
+            android:text="" />
+    </LinearLayout>
+    
+      <LinearLayout
+        style="@style/style_layout_form"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            style="@style/style_textview_common"
+            android:layout_gravity="top"
+            android:text="@string/lab_addinvalid_Remark" />
+
+        <EditText
+             android:id="@+id/et_Remark"
+            style="@style/style_edittext_form"
+            android:layout_height="wrap_content"
+            android:maxLines="5"
+            android:singleLine="false"
+            android:text=""
+            android:gravity="top"
+            android:lines="5" />
+    </LinearLayout>
+
+    
+
+    <LinearLayout style="@style/style_layout_form" 
+        android:gravity="center"
+        android:layout_marginTop="10dip">
+
+
+        <Button
+            android:id="@+id/btn_submit"
+            style="@style/Style_Button"
+            android:layout_width="125dip"
+            android:layout_height="35dip"
+            android:layout_marginLeft="10dip"
+            android:text="@string/btn_confirm" />
+    </LinearLayout>
+
+</LinearLayout>
