@@ -56,6 +56,7 @@ public class ActivityViewDestroy extends BaseActivity {
 	int position = 0;
 	String jsonImg = "";
 	boolean isHistory = false;
+	private LinearLayout layout_back;
 
 	@Override
 	public void onClick(View v) {
@@ -85,6 +86,10 @@ public class ActivityViewDestroy extends BaseActivity {
 				Util.startActivity(ActivityViewDestroy.this, ActivityPicSend.class, false);
 			}
 
+			break;
+
+		case R.id.layout_back:
+			finish();
 			break;
 		}
 	}
@@ -120,6 +125,8 @@ public class ActivityViewDestroy extends BaseActivity {
 		btn_complete.setOnClickListener(this);
 		btn_choose_unqualied.setOnClickListener(this);
 
+		layout_back = (LinearLayout) findViewById(R.id.layout_back);
+		layout_back.setOnClickListener(this);
 	}
 
 	@Override

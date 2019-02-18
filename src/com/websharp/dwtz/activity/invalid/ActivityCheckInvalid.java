@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.gson.JsonObject;
@@ -43,6 +44,7 @@ public class ActivityCheckInvalid extends BaseActivity {
 	EditText et_Remark;
 
 	ImageView iv_spinner_qr ; 
+	private LinearLayout layout_back;
 	
 	@Override
 	public void onClick(View v) {
@@ -61,6 +63,10 @@ public class ActivityCheckInvalid extends BaseActivity {
 							AsyncAddDestroy();
 						}
 					}).show();
+			break;
+
+		case R.id.layout_back:
+			finish();
 			break;
 //		case R.id.iv_spinner_qr:
 //			 ActivityCheckInvalid.this.startActivityForResult(new Intent(ActivityCheckInvalid.this, CaptureActivity.class), 99);
@@ -94,6 +100,10 @@ public class ActivityCheckInvalid extends BaseActivity {
 		tv_ProcessComment = (TextView) findViewById(R.id.tv_ProcessComment);
 		tv_ImmuneTag = (TextView) findViewById(R.id.tv_ImmuneTag);
 		et_Remark = (EditText) findViewById(R.id.et_Remark);
+		
+
+		layout_back = (LinearLayout) findViewById(R.id.layout_back);
+		layout_back.setOnClickListener(this);
 	}
 
 	@Override

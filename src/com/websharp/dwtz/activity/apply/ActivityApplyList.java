@@ -28,7 +28,7 @@ public class ActivityApplyList extends BaseActivity {
 
 	private ImageView iv_add_apply;
 	private PullToRefreshListView lv_apply;
-	private AdapterApplyList adapterApplyList;
+	private AdapterApplyList adapterApplyList;	
 
 	BroadcastReceiver receiver = new BroadcastReceiver() {
 
@@ -67,6 +67,7 @@ public class ActivityApplyList extends BaseActivity {
 		lv_apply.getRefreshableView().addHeaderView(headView);
 		iv_add_apply = (ImageView)findViewById(R.id.iv_add_apply);
 		iv_add_apply.setOnClickListener(this);
+		
 	}
 
 	@Override

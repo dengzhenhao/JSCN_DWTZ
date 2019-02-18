@@ -15,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -41,6 +42,7 @@ public class ActivityAddDestroy extends BaseActivity {
 	EditText et_DestroyTotalCount;
 
 	String DestroyNum = "";
+	private LinearLayout layout_back;
 
 	@Override
 	public void onClick(View v) {
@@ -54,6 +56,9 @@ public class ActivityAddDestroy extends BaseActivity {
 							AsyncAddDestroy();
 						}
 					}).show();
+			break;
+		case R.id.layout_back:
+			finish();
 			break;
 		
 		}
@@ -71,6 +76,8 @@ public class ActivityAddDestroy extends BaseActivity {
 		tv_DestroyNum =(TextView)findViewById(R.id.tv_DestroyNum);
 		et_Remark = (EditText) findViewById(R.id.et_Remark);
 		et_DestroyTotalCount = (EditText)findViewById(R.id.et_DestroyTotalCount);
+		layout_back = (LinearLayout) findViewById(R.id.layout_back);
+		layout_back.setOnClickListener(this);
 		btn_submit.setOnClickListener(this);
 
 	}

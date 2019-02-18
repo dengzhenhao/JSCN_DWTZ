@@ -17,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -60,11 +61,12 @@ public class ActivityAddInvalid extends BaseActivity {
 	ImageView iv_spinner_processreason, iv_spinner_processcomment;
 	ArrayList<String> listProcessReason = new ArrayList<String>();
 	ArrayList<String> listProcessComment = new ArrayList<String>();
-	String jsonImg="";
-	
-	ImageView iv_spinner_qr ; 
-	ImageView iv_spinner_qr_2; 
-	
+	String jsonImg = "";
+
+	ImageView iv_spinner_qr;
+	ImageView iv_spinner_qr_2;
+	private LinearLayout layout_back;
+
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
@@ -74,8 +76,7 @@ public class ActivityAddInvalid extends BaseActivity {
 				Util.createToast(this, checkResult, 3000).show();
 				return;
 			}
-			Util.createDialog(this, null, R.string.msg_dialog_title,
-					R.string.msg_confirm_control, null, true, false,
+			Util.createDialog(this, null, R.string.msg_dialog_title, R.string.msg_confirm_control, null, true, false,
 					new DialogInterface.OnClickListener() {
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
@@ -84,8 +85,7 @@ public class ActivityAddInvalid extends BaseActivity {
 					}).show();
 			break;
 		case R.id.btn_clear:
-			Util.createDialog(this, null, R.string.msg_dialog_title,
-					R.string.msg_confirm_control, null, true, false,
+			Util.createDialog(this, null, R.string.msg_dialog_title, R.string.msg_confirm_control, null, true, false,
 					new DialogInterface.OnClickListener() {
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
@@ -107,13 +107,18 @@ public class ActivityAddInvalid extends BaseActivity {
 			Util.startActivity(ActivityAddInvalid.this, ActivityPicSend.class, false);
 			break;
 		case R.id.iv_spinner_qr:
-			ActivityAddInvalid.this.startActivityForResult(new Intent(ActivityAddInvalid.this, CaptureActivity.class), 99);
+			ActivityAddInvalid.this.startActivityForResult(new Intent(ActivityAddInvalid.this, CaptureActivity.class),
+					99);
 			break;
 		case R.id.iv_spinner_qr_2:
-			ActivityAddInvalid.this.startActivityForResult(new Intent(ActivityAddInvalid.this, CaptureActivity.class), 100);
+			ActivityAddInvalid.this.startActivityForResult(new Intent(ActivityAddInvalid.this, CaptureActivity.class),
+					100);
 			break;
 		case R.id.btn_gen_scan_code:
 			new SJECHttpHandler(cbGetLsNo, this).getLsNo(Constant.LSNO_PREFIX_BHG);
+			break;
+		case R.id.layout_back:
+			finish();
 			break;
 		}
 	}
@@ -128,7 +133,7 @@ public class ActivityAddInvalid extends BaseActivity {
 		// TODO Auto-generated method stub
 		btn_submit = (Button) findViewById(R.id.btn_submit);
 		btn_clear = (Button) findViewById(R.id.btn_clear);
-		btn_gen_scan_code = (Button)findViewById(R.id.btn_gen_scan_code);
+		btn_gen_scan_code = (Button) findViewById(R.id.btn_gen_scan_code);
 		tv_DeliveryNum = (TextView) findViewById(R.id.tv_DeliveryNum);
 		et_UnqualiedScanCode = (EditText) findViewById(R.id.et_UnqualiedScanCode);
 		et_UnqualiedScanCode_2 = (EditText) findViewById(R.id.et_UnqualiedScanCode_2);
@@ -138,9 +143,11 @@ public class ActivityAddInvalid extends BaseActivity {
 		sp_butchery_group = (Spinner) findViewById(R.id.sp_butchery_group);
 		iv_spinner_processreason = (ImageView) findViewById(R.id.iv_spinner_processreason);
 		iv_spinner_processcomment = (ImageView) findViewById(R.id.iv_spinner_processcomment);
-		iv_camera  = (ImageView)findViewById(R.id.iv_camera);
-		iv_spinner_qr = (ImageView)findViewById(R.id.iv_spinner_qr);
-		iv_spinner_qr_2 = (ImageView)findViewById(R.id.iv_spinner_qr_2);
+		iv_camera = (ImageView) findViewById(R.id.iv_camera);
+		iv_spinner_qr = (ImageView) findViewById(R.id.iv_spinner_qr);
+		iv_spinner_qr_2 = (ImageView) findViewById(R.id.iv_spinner_qr_2);
+		layout_back = (LinearLayout) findViewById(R.id.layout_back);
+		layout_back.setOnClickListener(this);
 		iv_spinner_qr.setOnClickListener(this);
 		iv_spinner_qr_2.setOnClickListener(this);
 		iv_camera.setOnClickListener(this);
@@ -150,10 +157,9 @@ public class ActivityAddInvalid extends BaseActivity {
 		iv_spinner_processreason.setOnClickListener(this);
 		iv_spinner_processcomment.setOnClickListener(this);
 
-		adapterButcheryGroup = new ArrayAdapter<String>(this,
-				android.R.layout.simple_spinner_item, listButcheryGroupName);
-		adapterButcheryGroup
-				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		adapterButcheryGroup = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,
+				listButcheryGroupName);
+		adapterButcheryGroup.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		sp_butchery_group.setAdapter(adapterButcheryGroup);
 
 		et_ProcessReason.requestFocus();
@@ -167,22 +173,18 @@ public class ActivityAddInvalid extends BaseActivity {
 		DeliveryNum = b.getString("DeliveryNum", "");
 		tv_DeliveryNum.setText(DeliveryNum);
 		for (int i = 0; i < GlobalData.listCommonData.size(); i++) {
-			if(!GlobalData.listCommonData.get(i).ButcheryID.equals(GlobalData.curButcheryID))
+			if (!GlobalData.listCommonData.get(i).ButcheryID.equals(GlobalData.curButcheryID))
 				continue;
-			 if (GlobalData.listCommonData.get(i).Type
-					.equals(Constant.COMMON_DATA_TYPE_PROCESS_REASON)) {
-				listProcessReason
-						.add(GlobalData.listCommonData.get(i).DataValue);
-			} else if (GlobalData.listCommonData.get(i).Type
-					.equals(Constant.COMMON_DATA_TYPE_PROCESS_COMMENT)) {
-				listProcessComment
-						.add(GlobalData.listCommonData.get(i).DataValue);
+			if (GlobalData.listCommonData.get(i).Type.equals(Constant.COMMON_DATA_TYPE_PROCESS_REASON)) {
+				listProcessReason.add(GlobalData.listCommonData.get(i).DataValue);
+			} else if (GlobalData.listCommonData.get(i).Type.equals(Constant.COMMON_DATA_TYPE_PROCESS_COMMENT)) {
+				listProcessComment.add(GlobalData.listCommonData.get(i).DataValue);
 			}
 		}
-		
+
 		getInitData();
 	}
-	
+
 	@Override
 	public void onDestroy() {
 		// TODO Auto-generated method stub
@@ -190,29 +192,28 @@ public class ActivityAddInvalid extends BaseActivity {
 		GlobalData.listImage.clear();
 		jsonImg = null;
 	}
-	
+
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		// TODO Auto-generated method stub
 		super.onActivityResult(requestCode, resultCode, data);
 		if (RESULT_OK == resultCode) {
-			if(requestCode == 99){
+			if (requestCode == 99) {
 				Bundle b = data.getExtras();
 				String qrCode = b.getString("data");
 				et_UnqualiedScanCode.setText(qrCode);
-			}
-			else if(requestCode == 100){
+			} else if (requestCode == 100) {
 				Bundle b = data.getExtras();
 				String qrCode = b.getString("data");
 				et_UnqualiedScanCode_2.setText(qrCode);
-			} 
+			}
 		}
 	}
 
 	public void getInitData() {
-		//new SJECHttpHandler(cbGetLsNo, this).getLsNo(Constant.LSNO_PREFIX_BHG);
-		new SJECHttpHandler(cbGetButcheryGroup, this)
-				.getButcheryGroup(QuarantineID);
+		// new SJECHttpHandler(cbGetLsNo,
+		// this).getLsNo(Constant.LSNO_PREFIX_BHG);
+		new SJECHttpHandler(cbGetButcheryGroup, this).getButcheryGroup(QuarantineID);
 	}
 
 	AsyncHttpCallBack cbGetLsNo = new AsyncHttpCallBack() {
@@ -231,11 +232,8 @@ public class ActivityAddInvalid extends BaseActivity {
 					String lsNo = objData.optString("lsno", "failed");
 					et_UnqualiedScanCode.setText(lsNo);
 				} else {
-					Util.createToast(
-							ActivityAddInvalid.this,
-							obj.optString("desc",
-									getString(R.string.msg_failed_getlsno)),
-							3000).show();
+					Util.createToast(ActivityAddInvalid.this,
+							obj.optString("desc", getString(R.string.msg_failed_getlsno)), 3000).show();
 				}
 			} catch (JSONException e) {
 				e.printStackTrace();
@@ -268,17 +266,12 @@ public class ActivityAddInvalid extends BaseActivity {
 							}.getType());
 
 					for (int i = 0; i < listButcheryGroup.size(); i++) {
-						listButcheryGroupName
-								.add(listButcheryGroup.get(i).GroupName);
+						listButcheryGroupName.add(listButcheryGroup.get(i).GroupName);
 					}
 					adapterButcheryGroup.notifyDataSetChanged();
 				} else {
-					Util.createToast(
-							ActivityAddInvalid.this,
-							obj.optString(
-									"desc",
-									getString(R.string.msg_failed_getButcheryGroup)),
-							3000).show();
+					Util.createToast(ActivityAddInvalid.this,
+							obj.optString("desc", getString(R.string.msg_failed_getButcheryGroup)), 3000).show();
 				}
 			} catch (JSONException e) {
 				e.printStackTrace();
@@ -305,17 +298,13 @@ public class ActivityAddInvalid extends BaseActivity {
 				obj = new JSONObject(response);
 
 				if (obj.optString("result").equals("true")) {
-					Util.createToast(ActivityAddInvalid.this,
-							R.string.msg_control_success_continue_operator, 3000).show();
-					getApplication().sendBroadcast(
-							new Intent(Constant.ACTION_REFRESH_LIST_UNQUALIED));
-					//finish();
+					Util.createToast(ActivityAddInvalid.this, R.string.msg_control_success_continue_operator, 3000)
+							.show();
+					getApplication().sendBroadcast(new Intent(Constant.ACTION_REFRESH_LIST_UNQUALIED));
+					// finish();
 				} else {
-					Util.createToast(
-							ActivityAddInvalid.this,
-							obj.optString("desc",
-									getString(R.string.common_login_failed)),
-							3000).show();
+					Util.createToast(ActivityAddInvalid.this,
+							obj.optString("desc", getString(R.string.common_login_failed)), 3000).show();
 				}
 			} catch (JSONException e) {
 				e.printStackTrace();
@@ -332,13 +321,13 @@ public class ActivityAddInvalid extends BaseActivity {
 
 	private String checkContent() {
 
-//		if (getText(et_UnqualiedScanCode).isEmpty()) {
-//			return getString(R.string.msg_empty_UnqualiedScanCode);
-//		}
-		
-		if (GlobalData.listImage.size() ==1 && ! GlobalData.listImage.get(0).isImage) {
+		// if (getText(et_UnqualiedScanCode).isEmpty()) {
+		// return getString(R.string.msg_empty_UnqualiedScanCode);
+		// }
+
+		if (GlobalData.listImage.size() == 1 && !GlobalData.listImage.get(0).isImage) {
 			return getString(R.string.msg_empty_image_size_0);
-		} 
+		}
 
 		if (getText(et_ProcessReason).isEmpty()) {
 			return getString(R.string.msg_empty_ProcessReason);
@@ -347,8 +336,8 @@ public class ActivityAddInvalid extends BaseActivity {
 		if (getText(et_ProcessComment).isEmpty()) {
 			return getString(R.string.msg_empty_ProcessComment);
 		}
-		
-		if(sp_butchery_group.getSelectedItemPosition() == AdapterView.INVALID_POSITION){
+
+		if (sp_butchery_group.getSelectedItemPosition() == AdapterView.INVALID_POSITION) {
 			return "请选择一个屠宰小组";
 		}
 
@@ -362,21 +351,16 @@ public class ActivityAddInvalid extends BaseActivity {
 		json.addProperty("ProcessReason", getText(et_ProcessReason));
 		json.addProperty("UnqualiedScanCode", getText(et_UnqualiedScanCode));
 		json.addProperty("UnqualiedScanCode_2", getText(et_UnqualiedScanCode_2));
-		json.addProperty("ButcheryGroupID", listButcheryGroup
-				.get(sp_butchery_group.getSelectedItemPosition()).InnerID);
+		json.addProperty("ButcheryGroupID", listButcheryGroup.get(sp_butchery_group.getSelectedItemPosition()).InnerID);
 		json.addProperty("Remark", getText(et_Remark));
 
-		jsonImg =ActivityPicSend.getJsonImg().toString();
+		jsonImg = ActivityPicSend.getJsonImg().toString();
 		try {
-			new SJECHttpHandler(cb, this).addUnqualied(json.toString(),
-					QuarantineID,jsonImg);
+			new SJECHttpHandler(cb, this).addUnqualied(json.toString(), QuarantineID, jsonImg);
 		} catch (Exception e) {
 			e.printStackTrace();
-			Util.createToast(ActivityAddInvalid.this,
-					R.string.msg_control_failed, 3000).show();
+			Util.createToast(ActivityAddInvalid.this, R.string.msg_control_failed, 3000).show();
 		}
 	}
-	
-
 
 }

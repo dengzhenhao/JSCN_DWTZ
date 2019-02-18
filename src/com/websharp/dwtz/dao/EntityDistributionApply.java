@@ -29,7 +29,7 @@ public class EntityDistributionApply {
 
     public ArrayList<EntityDistributionApplyTarget> target_list;
     
-
+    
     public ArrayList<EntityDistributionApplyTarget> getTarget_list() {
 		return target_list;
 	}

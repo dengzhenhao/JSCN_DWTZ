@@ -11,12 +11,16 @@ import com.websharputil.common.Util;
 public class ActivityMeatManList extends BaseActivity {
 
 	Button btn_submit;
+	private LinearLayout layout_back;
 	
 	@Override
 	public void onClick(View v) {
 		switch(v.getId()){
 		case R.id.btn_submit:
 			Util.startActivity(ActivityMeatManList.this, ActivityInvalidList.class, false);
+			break;
+		case R.id.layout_back:
+			finish();
 			break;
 		}
 	}
@@ -30,6 +34,8 @@ public class ActivityMeatManList extends BaseActivity {
 	public void init() {
 		btn_submit  = (Button)findViewById(R.id.btn_submit);
 		btn_submit.setOnClickListener(this);
+		layout_back = (LinearLayout) findViewById(R.id.layout_back);
+		layout_back.setOnClickListener(this);
 	}
 
 	@Override

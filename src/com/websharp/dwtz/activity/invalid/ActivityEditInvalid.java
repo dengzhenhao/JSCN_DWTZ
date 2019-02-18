@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -50,18 +51,20 @@ public class ActivityEditInvalid extends BaseActivity {
 	ArrayAdapter adapterButcheryGroup;
 	ArrayList<String> listButcheryGroupName = new ArrayList<String>();
 	ArrayList<EntityButcheryGroup> listButcheryGroup = new ArrayList<EntityButcheryGroup>();
+	private LinearLayout layout_back;
 
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.iv_camera:
 			Bundle b = new Bundle();
-			b.putString("url", String.format(SJECHttpHandler.URL_TAKE_PIC,
-					"resolve", GlobalData.listUnqualied.get(position).InnerID,
-					GlobalData.curUser.InnerID));
+			b.putString("url", String.format(SJECHttpHandler.URL_TAKE_PIC, "resolve",
+					GlobalData.listUnqualied.get(position).InnerID, GlobalData.curUser.InnerID));
 			b.putString("title", "采集监控照片");
-			Util.startActivity(ActivityEditInvalid.this, ActivityWebview.class,
-					b, false);
+			Util.startActivity(ActivityEditInvalid.this, ActivityWebview.class, b, false);
+			break;
+		case R.id.layout_back:
+			finish();
 			break;
 		}
 	}
@@ -89,10 +92,11 @@ public class ActivityEditInvalid extends BaseActivity {
 		iv_camera.setVisibility(View.VISIBLE);
 		iv_camera.setOnClickListener(this);
 
-		adapterButcheryGroup = new ArrayAdapter<String>(this,
-				android.R.layout.simple_spinner_item, listButcheryGroupName);
-		adapterButcheryGroup
-				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		layout_back = (LinearLayout) findViewById(R.id.layout_back);
+		layout_back.setOnClickListener(this);
+		adapterButcheryGroup = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,
+				listButcheryGroupName);
+		adapterButcheryGroup.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		sp_butchery_group.setAdapter(adapterButcheryGroup);
 		et_UnqualiedScanCode.setEnabled(false);
 		et_UnqualiedScanCode_2.setEnabled(false);
@@ -131,8 +135,7 @@ public class ActivityEditInvalid extends BaseActivity {
 							}.getType());
 					int selectPosition = 0;
 					for (int i = 0; i < listButcheryGroup.size(); i++) {
-						listButcheryGroupName
-								.add(listButcheryGroup.get(i).GroupName);
+						listButcheryGroupName.add(listButcheryGroup.get(i).GroupName);
 						if (listButcheryGroup.get(i).InnerID
 								.equals(GlobalData.listUnqualied.get(position).ButcheryGroupID)) {
 							selectPosition = i;
@@ -140,26 +143,16 @@ public class ActivityEditInvalid extends BaseActivity {
 					}
 					adapterButcheryGroup.notifyDataSetChanged();
 
-					tv_DeliveryNum.setText(GlobalData.listUnqualied
-							.get(position).DeliveryNum);
-					et_UnqualiedScanCode.setText(GlobalData.listUnqualied
-							.get(position).UnqualiedScanCode);
-					et_UnqualiedScanCode_2.setText(GlobalData.listUnqualied
-							.get(position).UnqualiedScanCode_2);
-					et_ProcessReason.setText(GlobalData.listUnqualied
-							.get(position).ProcessReason);
-					et_ProcessComment.setText(GlobalData.listUnqualied
-							.get(position).ProcessComment);
-					et_Remark
-							.setText(GlobalData.listUnqualied.get(position).Remark);
+					tv_DeliveryNum.setText(GlobalData.listUnqualied.get(position).DeliveryNum);
+					et_UnqualiedScanCode.setText(GlobalData.listUnqualied.get(position).UnqualiedScanCode);
+					et_UnqualiedScanCode_2.setText(GlobalData.listUnqualied.get(position).UnqualiedScanCode_2);
+					et_ProcessReason.setText(GlobalData.listUnqualied.get(position).ProcessReason);
+					et_ProcessComment.setText(GlobalData.listUnqualied.get(position).ProcessComment);
+					et_Remark.setText(GlobalData.listUnqualied.get(position).Remark);
 					sp_butchery_group.setSelection(selectPosition);
 				} else {
-					Util.createToast(
-							ActivityEditInvalid.this,
-							obj.optString(
-									"desc",
-									getString(R.string.msg_failed_getButcheryGroup)),
-							3000).show();
+					Util.createToast(ActivityEditInvalid.this,
+							obj.optString("desc", getString(R.string.msg_failed_getButcheryGroup)), 3000).show();
 				}
 			} catch (JSONException e) {
 				e.printStackTrace();

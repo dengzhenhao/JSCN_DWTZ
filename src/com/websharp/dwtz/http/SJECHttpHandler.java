@@ -35,8 +35,8 @@ public class SJECHttpHandler extends BaseHttpHandler {
 	/**
 	 * 服务器地址
 	 */
-	public static final String BASE_URL = "http://192.168.0.3:9898";
-//	 public static final String BASE_URL = "http://153.37.221.130:8800";
+//	public static final String BASE_URL = "http://192.168.0.3:9898";
+	 public static final String BASE_URL = "http://153.37.221.130:8800";
 
 	public static String URL_PAGE_ARTICLE_CONTENT = BASE_URL + "/client/article.aspx?articleID=%s";
 
@@ -49,6 +49,8 @@ public class SJECHttpHandler extends BaseHttpHandler {
 	 * 登录接口
 	 */
 	public static final String URL_LOGIN = "/handlers/user/Login.ashx";
+	
+	public static final String URL_GET_MODULE_BY_USER_ID= "/handlers/user/GetUserModuleByUserID.ashx";
 
 	/**
 	 * 城市列表
@@ -555,4 +557,11 @@ public class SJECHttpHandler extends BaseHttpHandler {
 		new AsyncHttpUtil().post(BASE_URL + URL_ADD_ANIMAL_SLAUGHTER_IMMUNE_APPLY, params, handler);
 	}
 
+	public void GetUserModuleByUserID() {
+		RequestParams params = new RequestParams();
+		params.add("user_id", GlobalData.curUser.InnerID);
+		params.add("client", CLIENT);
+		params.add("signature", GetSignature(GlobalData.curUser.InnerID));
+		new AsyncHttpUtil().get(BASE_URL + URL_GET_MODULE_BY_USER_ID, params, handler);
+	}
 }

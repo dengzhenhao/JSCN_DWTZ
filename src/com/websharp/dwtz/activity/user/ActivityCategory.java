@@ -32,7 +32,7 @@ import com.websharputil.common.Util;
 public class ActivityCategory extends BaseActivity {
 
 	Spinner sp_butchery;
-	Button btn_unqualied, btn_destroy, btn_statistics,btn_destroy_history;
+	Button btn_unqualied, btn_destroy, btn_statistics, btn_destroy_history;
 	ArrayAdapter adapterButchery;
 	ArrayList<String> listButcheryName = new ArrayList<String>();
 	ArrayList<EntityButchery> listButchery = new ArrayList<EntityButchery>();
@@ -55,14 +55,15 @@ public class ActivityCategory extends BaseActivity {
 			break;
 		case R.id.btn_destroy_history:
 			b.putBoolean("isHistory", true);
-			Util.startActivity(ActivityCategory.this, ActivityDestroyList.class, b,false);
+			Util.startActivity(ActivityCategory.this, ActivityDestroyList.class, b, false);
 			break;
 		case R.id.btn_statistics:
 			b.putString("title", "查看统计报表");
 			b.putInt("ORIENTATION", ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 			b.putString("url", SJECHttpHandler.BASE_URL + "/setting/statistics/mobile_statistics_type.aspx?user_id="
 					+ GlobalData.curUser.InnerID);
-			//b.putInt("ORIENTATION", ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+			// b.putInt("ORIENTATION",
+			// ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 			Util.startActivity(this, ActivityWebview.class, b, false);
 			break;
 		}
@@ -81,7 +82,7 @@ public class ActivityCategory extends BaseActivity {
 		btn_unqualied = (Button) findViewById(R.id.btn_unqualied);
 		btn_destroy = (Button) findViewById(R.id.btn_destroy);
 		btn_statistics = (Button) findViewById(R.id.btn_statistics);
-		btn_destroy_history =(Button)findViewById(R.id.btn_destroy_history);
+		btn_destroy_history = (Button) findViewById(R.id.btn_destroy_history);
 		btn_unqualied.setOnClickListener(this);
 		btn_destroy.setOnClickListener(this);
 		btn_statistics.setOnClickListener(this);
@@ -95,22 +96,49 @@ public class ActivityCategory extends BaseActivity {
 	public void bindData() {
 		// TODO Auto-generated method stub
 		if (GlobalData.curUser != null) {
-			if (GlobalData.curUser.Role.equals("JG")) {
+			// if (GlobalData.curUser.Role.equals("JG")) {
+			// btn_destroy.setVisibility(View.GONE);
+			// btn_destroy_history.setVisibility(View.GONE);
+			// btn_unqualied.setVisibility(View.VISIBLE);
+			// } else if (GlobalData.curUser.Role.equals("GFSY")) {
+			// btn_destroy.setVisibility(View.GONE);
+			// btn_destroy_history.setVisibility(View.GONE);
+			// btn_unqualied.setVisibility(View.VISIBLE);
+			// }else if(GlobalData.curUser.Role.toUpperCase().equals("QYTZGL"))
+			// {
+			// btn_destroy.setVisibility(View.VISIBLE);
+			// btn_destroy_history.setVisibility(View.VISIBLE);
+			// btn_unqualied.setVisibility(View.VISIBLE);
+			// } else {
+			// btn_destroy.setVisibility(View.VISIBLE);
+			// btn_destroy_history.setVisibility(View.VISIBLE);
+			// btn_unqualied.setVisibility(View.GONE);
+			// }
+
+			if (GlobalData.ContainModule("销毁记录表")) {
+				btn_destroy.setVisibility(View.VISIBLE);
+				btn_destroy_history.setVisibility(View.VISIBLE);
+			} else {
 				btn_destroy.setVisibility(View.GONE);
 				btn_destroy_history.setVisibility(View.GONE);
-				btn_unqualied.setVisibility(View.VISIBLE);
-			} else if (GlobalData.curUser.Role.equals("GFSY")) {
-				btn_destroy.setVisibility(View.GONE);
-				btn_destroy_history.setVisibility(View.GONE);
+			}
+
+			if (GlobalData.ContainModule("进场登记表")) {
 				btn_unqualied.setVisibility(View.VISIBLE);
 			} else {
-				btn_destroy.setVisibility(View.VISIBLE); 
-				btn_destroy_history.setVisibility(View.VISIBLE);
 				btn_unqualied.setVisibility(View.GONE);
 			}
- 
-			if (GlobalData.curUser.Role.equals("JG") || GlobalData.curUser.Role.equals("DJS")
-					|| GlobalData.curUser.Role.equals("jdgl") ) {
+
+			// if (GlobalData.curUser.Role.equals("JG") ||
+			// GlobalData.curUser.Role.equals("DJS")
+			// || GlobalData.curUser.Role.equals("jdgl")
+			// || GlobalData.curUser.Role.toUpperCase().equals("QYTZGL")) {
+			// btn_statistics.setVisibility(View.VISIBLE);
+			// } else {
+			// btn_statistics.setVisibility(View.GONE);
+			// }
+
+			if (GlobalData.ContainModule("统计图")) {
 				btn_statistics.setVisibility(View.VISIBLE);
 			} else {
 				btn_statistics.setVisibility(View.GONE);

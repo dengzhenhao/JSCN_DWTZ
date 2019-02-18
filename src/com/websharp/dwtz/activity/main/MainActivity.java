@@ -26,6 +26,7 @@ import com.websharp.dwtz.adapter.AdapterOrderList;
 import com.websharp.dwtz.dao.EntityButchery;
 import com.websharp.dwtz.dao.EntityCommonData;
 import com.websharp.dwtz.dao.EntityLocation;
+import com.websharp.dwtz.dao.EntityModule;
 import com.websharp.dwtz.data.Constant;
 import com.websharp.dwtz.data.GlobalData;
 import com.websharp.dwtz.http.AsyncHttpCallBack;
@@ -148,6 +149,8 @@ public class MainActivity extends BaseActivity {
 
 		// TODO Auto-generated method stub
 		checkUpdateApk(this);
+		new SJECHttpHandler(cbGetModule, this).GetUserModuleByUserID();
+
 		if (GlobalData.listCommonData.size() == 0) {
 			new SJECHttpHandler(cbGetCommonData, MainActivity.this).getCommonData();
 		}
@@ -186,9 +189,27 @@ public class MainActivity extends BaseActivity {
 			if (GlobalData.curUser == null) {
 				Util.startActivity(MainActivity.this, ActivityLogin.class, false);
 			} else {
+				// qytzgl
 				// 监管，销毁，官方兽医
-				if (GlobalData.curUser.Role.equals("JG") || GlobalData.curUser.Role.equals("XH")
-						|| GlobalData.curUser.Role.equals("GFSY")) {
+
+				// 进场登记表
+				// 销毁记录表
+				// 动物屠宰检疫申报单
+				// 动物产品分销换证申请表
+				// 统计图
+				// if (GlobalData.curUser.Role.equals("JG") ||
+				// GlobalData.curUser.Role.equals("XH")
+				// || GlobalData.curUser.Role.equals("GFSY")
+				// || GlobalData.curUser.Role.toUpperCase().equals("QYTZGL")) {
+				// Util.startActivity(MainActivity.this, ActivityCategory.class,
+				// false);
+				// } else {
+				// Util.createToast(MainActivity.this,
+				// R.string.msg_dialog_role_failed, 3000).show();
+				// }
+
+				if (GlobalData.ContainModule("进场登记表") || GlobalData.ContainModule("销毁记录表")
+						|| GlobalData.ContainModule("统计图")) {
 					Util.startActivity(MainActivity.this, ActivityCategory.class, false);
 				} else {
 					Util.createToast(MainActivity.this, R.string.msg_dialog_role_failed, 3000).show();
@@ -211,7 +232,13 @@ public class MainActivity extends BaseActivity {
 			if (GlobalData.curUser == null) {
 				Util.startActivity(MainActivity.this, ActivityLogin.class, false);
 			} else {
-				if (GlobalData.curUser.Role.equals("FX")) {
+//				if (GlobalData.curUser.Role.equals("FX")) {
+//					Util.startActivity(MainActivity.this, ActivityApplyList.class, false);
+//				} else {
+//					Util.createToast(MainActivity.this, R.string.msg_dialog_role_failed, 3000).show();
+//				}
+				
+				if (GlobalData.ContainModule("动物产品分销换证申请表")) {
 					Util.startActivity(MainActivity.this, ActivityApplyList.class, false);
 				} else {
 					Util.createToast(MainActivity.this, R.string.msg_dialog_role_failed, 3000).show();
@@ -220,8 +247,15 @@ public class MainActivity extends BaseActivity {
 			break;
 		case R.id.iv_sjxxxt:
 			// 检疫申报
-			//Util.startActivity(MainActivity.this, ActivityDwtzjysbList.class, false);
-			if (!GlobalData.curUser.Role.equals("JG") && !GlobalData.curUser.Role.equals("GFSY")) {
+			// Util.startActivity(MainActivity.this, ActivityDwtzjysbList.class,
+			// false);
+//			if (!GlobalData.curUser.Role.equals("JG")) {
+//				Util.startActivity(MainActivity.this, ActivityDwtzjysbList.class, false);
+//			} else {
+//				Util.createToast(MainActivity.this, R.string.msg_dialog_role_failed, 3000).show();
+//			}
+			
+			if (GlobalData.ContainModule("动物屠宰检疫申报单")) {
 				Util.startActivity(MainActivity.this, ActivityDwtzjysbList.class, false);
 			} else {
 				Util.createToast(MainActivity.this, R.string.msg_dialog_role_failed, 3000).show();
@@ -332,6 +366,36 @@ public class MainActivity extends BaseActivity {
 					Gson gson = new Gson();
 					GlobalData.listCommonData = gson.fromJson(obj.getString("data"),
 							new TypeToken<ArrayList<EntityCommonData>>() {
+							}.getType());
+
+				}
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		}
+
+		@Override
+		public void onFailure(String message) {
+			super.onFailure(message);
+			LogUtil.d("%s", message);
+		}
+
+	};
+
+	AsyncHttpCallBack cbGetModule = new AsyncHttpCallBack() {
+
+		@Override
+		public void onSuccess(String response) {
+
+			super.onSuccess(response);
+			LogUtil.d("%s", response);
+			JSONObject obj;
+			try {
+				obj = new JSONObject(response);
+				if (obj.optString("result").equals("true")) {
+					Gson gson = new Gson();
+					GlobalData.listModule = gson.fromJson(obj.getString("data"),
+							new TypeToken<ArrayList<EntityModule>>() {
 							}.getType());
 
 				}
@@ -501,7 +565,6 @@ public class MainActivity extends BaseActivity {
 		startActivity(intent);
 	}
 
-
 	AsyncHttpCallBack cbGetButchery = new AsyncHttpCallBack() {
 
 		@Override
@@ -515,8 +578,9 @@ public class MainActivity extends BaseActivity {
 
 				if (obj.optString("result").equals("true")) {
 					Gson gson = new Gson();
-					GlobalData.listButcheryByUser  = gson.fromJson(obj.getString("data"), new TypeToken<ArrayList<EntityButchery>>() {
-					}.getType());
+					GlobalData.listButcheryByUser = gson.fromJson(obj.getString("data"),
+							new TypeToken<ArrayList<EntityButchery>>() {
+							}.getType());
 				} else {
 					Util.createToast(MainActivity.this,
 							obj.optString("desc", getString(R.string.msg_failed_getButcheryGroup)), 3000).show();
