@@ -564,13 +564,14 @@ public class ActivityEditDwtzjysb extends BaseActivity {
 				obj = new JSONObject(response);
 
 				if (obj.optString("result").equals("true")) {
-					et_quar_count.setText(obj.optString("TotalCount", "0"));
-					et_animal_count.setText(obj.optString("AnimalCount", "0"));
-					et_Origin.setText(obj.optString("origin", ""));
-					et_entranceImmune_num.setText(obj.optString("entrance_immune_num", ""));
-					et_rest_count.setText(obj.optString("rest_count", "0"));
-					et_inspection_staff.setText(obj.optString("inspection_staff", ""));
-					et_inspection_staff_telephone.setText(obj.optString("inspection_staff_telephone", ""));
+					JSONObject json = obj.getJSONObject("data");
+					et_quar_count.setText(json.optString("TotalCount", "0"));
+					et_animal_count.setText(json.optString("AnimalCount", "0"));
+					et_Origin.setText(json.optString("origin", ""));
+					et_entranceImmune_num.setText(json.optString("entrance_immune_num", ""));
+					et_rest_count.setText(json.optString("rest_count", "0"));
+					et_inspection_staff.setText(json.optString("inspection_staff", ""));
+					et_inspection_staff_telephone.setText(json.optString("inspection_staff_telephone", ""));
 				} else {
 					Util.createToast(ActivityEditDwtzjysb.this, obj.optString("desc", "加载失败"), 3000).show();
 				}
