@@ -455,7 +455,7 @@ public class ActivityAddDwtzjysb extends BaseActivity {
 		apply.target_address = getText(et_target_address);
 		apply.start_trans_time = getText(tv_start_trans_time) + ":00";
 		apply.is_read_warn = cbx_read_warn.isChecked() ? "1" : "0";
-		apply.butchery_id = GlobalData.listButchery.get(sp_butchery.getSelectedItemPosition()).InnerID;
+		apply.butchery_id = GlobalData.curButcheryID;
 
 		String str = JSONUtils.toJson2(apply, null, null);
 		try {

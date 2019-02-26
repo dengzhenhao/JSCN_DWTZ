@@ -407,7 +407,7 @@ public class ActivityEditDwtzjysb extends BaseActivity {
 			return "注意事项请阅读并确认";
 		}
 
-		if (curImgPath.isEmpty()) {
+		if (curImgPath.isEmpty() && tv_view_signature.getTag() == null) {
 			return "请报检员签名";
 		}
 		return result;
@@ -435,9 +435,6 @@ public class ActivityEditDwtzjysb extends BaseActivity {
 			}
 		}
 
-		for (int i = 0; i < GlobalData.listButchery.size(); i++) {
-			listItem.add(GlobalData.listButchery.get(i).ButcheryName);
-		}
 
 		adapterButchery = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listItem);
 		adapterButchery.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -467,7 +464,7 @@ public class ActivityEditDwtzjysb extends BaseActivity {
 		int position = getIntent().getExtras().getInt("position", -1);
 		if (position != -1) {
 			curApply = GlobalData.listAnimalSlaughterImmuneApply.get(position);
-
+			
 			et_apply_user_name.setText(curApply.apply_user_name);
 			tv_apply_time
 					.setText(curApply.apply_time.replaceAll("/", "-").substring(0, curApply.apply_time.length() - 3));
@@ -604,7 +601,7 @@ public class ActivityEditDwtzjysb extends BaseActivity {
 		curApply.target_address = getText(et_target_address);
 		curApply.start_trans_time = getText(tv_start_trans_time) + ":00";
 		curApply.is_read_warn = cbx_read_warn.isChecked() ? "1" : "0";
-		curApply.butchery_id = GlobalData.listButchery.get(sp_butchery.getSelectedItemPosition()).InnerID;
+		curApply.butchery_id = GlobalData.curButcheryID;
 
 		String str = JSONUtils.toJson2(curApply, null, null);
 		try {

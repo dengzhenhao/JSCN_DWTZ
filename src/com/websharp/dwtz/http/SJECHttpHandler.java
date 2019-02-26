@@ -35,7 +35,7 @@ public class SJECHttpHandler extends BaseHttpHandler {
 	/**
 	 * 服务器地址
 	 */
-//	public static final String BASE_URL = "http://192.168.0.3:9898";
+//	public static final String BASE_URL = "http://192.168.2.122:9898";
 	 public static final String BASE_URL = "http://153.37.221.130:8800";
 
 	public static String URL_PAGE_ARTICLE_CONTENT = BASE_URL + "/client/article.aspx?articleID=%s";
@@ -49,8 +49,8 @@ public class SJECHttpHandler extends BaseHttpHandler {
 	 * 登录接口
 	 */
 	public static final String URL_LOGIN = "/handlers/user/Login.ashx";
-	
-	public static final String URL_GET_MODULE_BY_USER_ID= "/handlers/user/GetUserModuleByUserID.ashx";
+
+	public static final String URL_GET_MODULE_BY_USER_ID = "/handlers/user/GetUserModuleByUserID.ashx";
 
 	/**
 	 * 城市列表
@@ -545,8 +545,12 @@ public class SJECHttpHandler extends BaseHttpHandler {
 	}
 
 	public void addAnimalSlaughterImmuneApply(String jsonObj, String imgPath) throws Exception {
-	
-		String topic_image = new String(org.apache.commons.codec.binary.Base64.encodeBase64(ImageUtil.GetByteFromFile(imgPath)));
+
+		String topic_image = "";
+		if (!imgPath.isEmpty() && imgPath != null) {
+			topic_image = new String(
+					org.apache.commons.codec.binary.Base64.encodeBase64(ImageUtil.GetByteFromFile(imgPath)));
+		}
 
 		RequestParams params = new RequestParams();
 		params.add("user_id", GlobalData.curUser.InnerID);
