@@ -121,7 +121,7 @@ public class ActivityViewDestroy extends BaseActivity {
 		layout_unqualied_count.setVisibility(View.VISIBLE);
 		
 		tv_title.setText("处理不合格记录");
-		btn_submit.setOnClickListener(this);
+		//btn_submit.setOnClickListener(this);
 		btn_complete.setOnClickListener(this);
 		btn_choose_unqualied.setOnClickListener(this);
 
@@ -146,6 +146,7 @@ public class ActivityViewDestroy extends BaseActivity {
 				|| GlobalData.listDestroy.get(position).Update_UserID.equals(GlobalData.curUser.UserID)) {
 			btn_choose_unqualied.setVisibility(View.VISIBLE);
 		} else {
+			
 			btn_choose_unqualied.setVisibility(View.GONE);
 		}
 
@@ -202,6 +203,14 @@ public class ActivityViewDestroy extends BaseActivity {
 
 				if (obj.optString("result").equals("true")) {
 					et_UnqualiedCount.setText(obj.getJSONObject("data").optString("UnqualiedCount"));
+					
+					//如果填 写的不合格数量，与已添加的不合格记录数量相等，那么不显示 按钮 添加不合格记录
+					if (ConvertUtil.ParsetStringToInt32(getText(et_DestroyTotalCount), 0) == ConvertUtil
+							.ParsetStringToInt32(getText(et_UnqualiedCount), 0)) {
+						btn_choose_unqualied.setVisibility(View.GONE);
+						return;
+					}
+
 				} else {
 					Util.createToast(ActivityViewDestroy.this,
 							obj.optString("desc", getString(R.string.common_login_failed)), 3000).show();

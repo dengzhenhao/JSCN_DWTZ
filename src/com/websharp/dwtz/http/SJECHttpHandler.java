@@ -35,7 +35,7 @@ public class SJECHttpHandler extends BaseHttpHandler {
 	/**
 	 * 服务器地址
 	 */
-//	public static final String BASE_URL = "http://192.168.2.122:9898";
+//	public static final String BASE_URL = "http://192.168.0.16:9898";
 	 public static final String BASE_URL = "http://153.37.221.130:8800";
 
 	public static String URL_PAGE_ARTICLE_CONTENT = BASE_URL + "/client/article.aspx?articleID=%s";
