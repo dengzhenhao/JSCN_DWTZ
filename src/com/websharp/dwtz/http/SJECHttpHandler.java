@@ -35,8 +35,8 @@ public class SJECHttpHandler extends BaseHttpHandler {
 	/**
 	 * 服务器地址
 	 */
-//	public static final String BASE_URL = "http://192.168.0.16:9898";
-	 public static final String BASE_URL = "http://153.37.221.130:8800";
+	public static final String BASE_URL = "http://192.168.0.10:9898";
+//	 public static final String BASE_URL = "http://153.37.221.130:8800";
 
 	public static String URL_PAGE_ARTICLE_CONTENT = BASE_URL + "/client/article.aspx?articleID=%s";
 
@@ -145,6 +145,7 @@ public class SJECHttpHandler extends BaseHttpHandler {
 	 * 动物屠宰检疫申报
 	 */
 	public static final String URL_LIST_ANIMAL_SLAUGHTER_IMMUNE = "/handlers/animal_slaughter_immune_apply/GetAnimalSlaughterImmuneApplyByUserID.ashx";
+	public static final String URL_LIST_ANIMAL_SLAUGHTER_UNCHECK= "/handlers/animal_slaughter_immune_apply/GetAnimalSlaughterImmuneApplyUnCheck.ashx";
 
 	/**
 	 * 检疫申报页面，加载申报人的数据
@@ -152,6 +153,7 @@ public class SJECHttpHandler extends BaseHttpHandler {
 	public static final String URL_LIST_ANIMAL_SLAUGHTER_IMMUNE_APPLY_DATA = "/handlers/animal_slaughter_immune_apply/GetAnimalSlaughterImmuneApplyerData.ashx";
 
 	public static final String URL_ADD_ANIMAL_SLAUGHTER_IMMUNE_APPLY = "/handlers/animal_slaughter_immune_apply/AddAnimalSlaughterImmuneApply.ashx";
+	public static final String URL_CONFIRM_ANIMAL_SLAUGHTER_IMMUNE_APPLY = "/handlers/animal_slaughter_immune_apply/ConfirmAnimalSlaughterImmuneApply.ashx";
 
 	public SJECHttpHandler(AsyncHttpCallBack callback, Context context) {
 		super(callback, context);
@@ -560,6 +562,29 @@ public class SJECHttpHandler extends BaseHttpHandler {
 		params.add("signature", GetSignature(GlobalData.curUser.InnerID, jsonObj));
 		new AsyncHttpUtil().post(BASE_URL + URL_ADD_ANIMAL_SLAUGHTER_IMMUNE_APPLY, params, handler);
 	}
+	
+	/**
+	 * 审核检疫审报单，上传签名
+	 * @param jsonObj
+	 * @param imgPath
+	 * @throws Exception
+	 */
+	public void ConfirmAnimalSlaughterImmuneApply(String jsonObj, String imgPath) throws Exception {
+
+		String topic_image = "";
+		if (!imgPath.isEmpty() && imgPath != null) {
+			topic_image = new String(
+					org.apache.commons.codec.binary.Base64.encodeBase64(ImageUtil.GetByteFromFile(imgPath)));
+		}
+
+		RequestParams params = new RequestParams();
+		params.add("user_id", GlobalData.curUser.InnerID);
+		params.add("jsonObj", URLEncoder.encode(jsonObj, "utf-8"));
+		params.add("sign_img", topic_image);
+		params.add("client", CLIENT);
+		params.add("signature", GetSignature(GlobalData.curUser.InnerID, jsonObj));
+		new AsyncHttpUtil().post(BASE_URL + URL_CONFIRM_ANIMAL_SLAUGHTER_IMMUNE_APPLY, params, handler);
+	}
 
 	public void GetUserModuleByUserID() {
 		RequestParams params = new RequestParams();
@@ -567,5 +592,13 @@ public class SJECHttpHandler extends BaseHttpHandler {
 		params.add("client", CLIENT);
 		params.add("signature", GetSignature(GlobalData.curUser.InnerID));
 		new AsyncHttpUtil().get(BASE_URL + URL_GET_MODULE_BY_USER_ID, params, handler);
+	}
+	
+	public void GetAnimalSlaughterImmuneApplyUnCheck() {
+		RequestParams params = new RequestParams();
+		params.add("user_id", GlobalData.curUser.InnerID);
+		params.add("client", CLIENT);
+		params.add("signature", GetSignature(GlobalData.curUser.InnerID));
+		new AsyncHttpUtil().get(BASE_URL + URL_LIST_ANIMAL_SLAUGHTER_UNCHECK, params, handler);
 	}
 }

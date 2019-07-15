@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <resources>
     <string name="app_name">苏州动物卫生监督信息系统</string>
-    <string name="str_versionName">1.5.7</string>
+    <string name="str_versionName">1.5.8</string>
     <!-- 提示 -->
     <string name="msg_dialog_options">请选择</string>
     <string name="msg_dialog_title">提示</string>

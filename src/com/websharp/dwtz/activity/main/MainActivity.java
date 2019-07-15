@@ -19,6 +19,7 @@ import com.websharp.dwtz.activity.apply.ActivityAddDsitributionChangeApply;
 import com.websharp.dwtz.activity.apply.ActivityApplyList;
 import com.websharp.dwtz.activity.dwtzjysb.ActivityDwtzjysbList;
 import com.websharp.dwtz.activity.user.ActivityCategory;
+import com.websharp.dwtz.activity.user.ActivityCategoryDwtzjysb;
 import com.websharp.dwtz.activity.user.ActivityLogin;
 import com.websharp.dwtz.activity.web.ActivityWebview;
 import com.websharp.dwtz.adapter.AdapterMainList;
@@ -254,9 +255,12 @@ public class MainActivity extends BaseActivity {
 //			} else {
 //				Util.createToast(MainActivity.this, R.string.msg_dialog_role_failed, 3000).show();
 //			}
-			
+			if (GlobalData.curUser == null) {
+				Util.startActivity(MainActivity.this, ActivityLogin.class, false);
+				return;
+			} 
 			if (GlobalData.ContainModule("动物屠宰检疫申报单")) {
-				Util.startActivity(MainActivity.this, ActivityDwtzjysbList.class, false);
+				Util.startActivity(MainActivity.this, ActivityCategoryDwtzjysb.class, false);
 			} else {
 				Util.createToast(MainActivity.this, R.string.msg_dialog_role_failed, 3000).show();
 			}

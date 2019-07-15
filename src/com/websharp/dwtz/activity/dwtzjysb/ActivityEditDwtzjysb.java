@@ -146,6 +146,7 @@ public class ActivityEditDwtzjysb extends BaseActivity {
 
 		@Override
 		public void onReceive(Context context, Intent intent) {
+	
 			if (intent.getAction().equals(Constant.ACTION_OPEN_ATTACH)) {
 				Bundle b = intent.getExtras();
 				String url = b.getString("url", "");

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical" >
+
+    <Button
+        android:id="@+id/btn_dwtzjysb_list"
+        style="@style/Style_Button"
+        android:layout_width="150dip"
+        android:layout_height="35dip"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="20dip"
+        android:text="添加检疫申报" />
+    
+    <Button
+        android:id="@+id/btn_dwtzjysb_list_confirm"
+        style="@style/Style_Button"
+        android:layout_width="150dip"
+        android:visibility="gone"
+        android:layout_height="35dip"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="20dip"
+        android:text="审核检疫申报" />
+
+</LinearLayout>
