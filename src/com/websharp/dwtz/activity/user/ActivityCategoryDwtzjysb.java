@@ -69,6 +69,8 @@ public class ActivityCategoryDwtzjysb extends BaseActivity {
 
 	@Override
 	public void bindData() {
+//		btn_dwtzjysb_list.setVisibility(View.VISIBLE);
+//		btn_dwtzjysb_list_confirm.setVisibility(View.VISIBLE);
 		if (GlobalData.curUser.Role.toLowerCase().equals("jysb")
 				|| GlobalData.curUser.Role.toLowerCase().equals("gfsy") ) {
 			btn_dwtzjysb_list.setVisibility(View.GONE);

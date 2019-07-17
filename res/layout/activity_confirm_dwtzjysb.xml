@@ -1,0 +1,159 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:focusable="false" >
+
+        <RelativeLayout
+            android:id="@+id/layout_widget"
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/height_title"
+            android:background="@color/color_bg_title_bar"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:id="@+id/iv_icon"
+                android:layout_width="50dip "
+                android:layout_height="match_parent"
+                android:padding="10dip"
+                android:scaleType="fitCenter"
+                android:src="@drawable/icon" >
+            </ImageView>
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/iv_icon"
+                android:text="@string/app_name"
+                android:textColor="@android:color/white"
+                android:textSize="13sp" />
+
+        </RelativeLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#fff"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:paddingBottom="10dip" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dip"
+                    android:layout_marginTop="1px"
+                    android:background="@color/color_bg_common"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:paddingTop="20dip" >
+
+                    <TextView
+                        android:id="@+id/tv_username"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:textColor="@android:color/white" />
+
+                    <TextView
+                        android:id="@+id/tv_role"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dip"
+                        android:text=""
+                        android:textColor="@android:color/white" />
+
+                    <TextView
+                        android:id="@+id/tv_staffno"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dip"
+                        android:text=""
+                        android:textColor="@android:color/white" />
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height_title_100"
+                    android:background="@color/color_bg_main_control_bar" >
+
+                    <LinearLayout
+                        android:id="@+id/layout_1"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/height_title"
+                        android:background="@color/color_bg_common"
+                        android:orientation="horizontal" >
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/height_title"
+                        android:layout_below="@+id/layout_1"
+                        android:gravity="center_vertical|right" >
+
+                        <ImageView
+                            android:id="@+id/iv_camera"
+                            android:layout_width="@dimen/height_title"
+                            android:layout_height="@dimen/height_title"
+                            android:layout_alignParentRight="true"
+                            android:background="@drawable/selector_common_layout_trans"
+                            android:padding="15dip"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/icon_camera" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="60dip"
+                        android:layout_height="60dip"
+                        android:layout_centerInParent="true"
+                        android:background="@drawable/icon_user" />
+                </RelativeLayout>
+
+                <include layout="@layout/widget_form_dwtzjysb_confirm" />
+
+                <Button
+                    android:id="@+id/btn_submit"
+                    style="@style/Style_Button"
+                    android:layout_width="125dip"
+                    android:layout_height="35dip"
+                    android:layout_marginTop="10dip"
+                    android:text="@string/btn_confirm" />
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_do_check_time_picker"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:background="#66000000"
+        android:visibility="gone" >
+
+        <com.timepicker.WheelView
+            android:id="@+id/wv_day_do_check_time"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:focusable="true"
+            android:focusableInTouchMode="true" />
+    </LinearLayout>
+    
+        <include
+        android:id="@+id/layout_downloading"
+        layout="@layout/widget_downloading"
+        android:visibility="gone" />
+</RelativeLayout>

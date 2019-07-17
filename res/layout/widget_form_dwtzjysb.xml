@@ -45,6 +45,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/layout_sbrmc"
         style="@style/style_layout_form"
         android:layout_height="75dip" >
 

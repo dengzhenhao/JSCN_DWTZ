@@ -1,0 +1,505 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingLeft="20dip"
+    android:paddingRight="20dip" >
+
+    <TextView
+        style="@style/style_textview_common"
+        android:layout_width="match_parent"
+        android:text="动物屠宰检疫申报" />
+
+    <LinearLayout
+        style="@style/style_layout_form"
+        android:layout_height="40dip" >
+
+        <TextView
+            style="@style/style_textview_common"
+            android:text="所属屠宰场" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="35dip"
+            android:layout_marginLeft="20dip" >
+
+            <Spinner
+                android:id="@+id/sp_butchery"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/shape_input"
+                android:gravity="center"
+                android:paddingLeft="10dip"
+                android:textAlignment="center" />
+
+            <ImageView
+                android:layout_width="10dip"
+                android:layout_height="10dip"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="3dip"
+                android:layout_marginRight="3dip"
+                android:background="@drawable/icon_spinner_corner" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_sbrmc"
+        style="@style/style_layout_form"
+        android:layout_height="75dip" >
+
+        <TextView
+            style="@style/style_textview_common"
+            android:layout_gravity="top"
+            android:text="申报人名称" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <EditText
+                    android:id="@+id/et_apply_user_name"
+                    style="@style/style_edittext_form"
+                    android:layout_weight="10"
+                    android:text="" />
+
+                <ImageView
+                    android:id="@+id/iv_spinner_apply_user_name"
+                    android:layout_width="35dip"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    android:padding="5dip"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/arrow_spinner" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_load_data"
+                style="@style/Style_Button"
+                android:layout_width="match_parent"
+                android:layout_height="35dip"
+                android:layout_marginLeft="20dip"
+                android:layout_marginTop="5dip"
+                android:text="加载申报人进场数据" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout style="@style/style_layout_form" >
+
+        <TextView
+            style="@style/style_textview_common"
+            android:text="报检时间" />
+
+        <TextView
+            android:id="@+id/tv_apply_time"
+            style="@style/style_edittext_form"
+            android:gravity="center_vertical"
+            android:text="" />
+    </LinearLayout>
+
+    <LinearLayout style="@style/style_layout_form" >
+
+        <TextView
+            style="@style/style_textview_common"
+            android:text="报检员姓名" />
+
+        <EditText
+            android:id="@+id/et_inspection_staff"
+            style="@style/style_edittext_form"
+            android:text="" />
+    </LinearLayout>
+
+    <LinearLayout style="@style/style_layout_form" >
+
+        <TextView
+            style="@style/style_textview_common"
+            android:text="联系电话" />
+
+        <EditText
+            android:id="@+id/et_inspection_staff_telephone"
+            style="@style/style_edittext_form"
+            android:layout_weight="10"
+            android:text="" />
+    </LinearLayout>
+
+    <LinearLayout style="@style/style_layout_form" >
+
+        <TextView
+            style="@style/style_textview_common"
+            android:text="动物种类" />
+
+        <EditText
+            android:id="@+id/et_animal_type"
+            style="@style/style_edittext_form"
+            android:text="" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_jcsl"
+        style="@style/style_layout_form" >
+
+        <TextView
+            style="@style/style_textview_common"
+            android:text="进场数量" />
+
+        <EditText
+            android:id="@+id/et_quar_count"
+            style="@style/style_edittext_form"
+            android:digits="0123456789"
+            android:hint="@string/hint_int"
+            android:inputType="number"
+            android:text="" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_kcsl"
+        style="@style/style_layout_form" >
+
+        <TextView
+            style="@style/style_textview_common"
+            android:text="库存数量" />
+
+        <EditText
+            android:id="@+id/et_rest_count"
+            style="@style/style_edittext_form"
+            android:digits="0123456789"
+            android:hint="@string/hint_int"
+            android:inputType="number"
+            android:text="" />
+    </LinearLayout>
+
+    <LinearLayout style="@style/style_layout_form" >
+
+        <TextView
+            style="@style/style_textview_common"
+            android:text="总数量" />
+
+        <EditText
+            android:id="@+id/et_animal_count"
+            style="@style/style_edittext_form"
+            android:digits="0123456789"
+            android:hint="@string/hint_int"
+            android:inputType="number"
+            android:text="" />
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/style_layout_form"
+        android:layout_height="105dip" >
+
+        <TextView
+            style="@style/style_textview_common"
+            android:layout_gravity="top"
+            android:text="动物产地" />
+
+        <EditText
+            android:id="@+id/et_Origin"
+            style="@style/style_edittext_form"
+            android:layout_height="100dip"
+            android:text="" />
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/style_layout_form"
+        android:layout_height="105dip" >
+
+        <TextView
+            style="@style/style_textview_common"
+            android:layout_gravity="top"
+            android:text="入场检疫证明编号" />
+
+        <EditText
+            android:id="@+id/et_entranceImmune_num"
+            style="@style/style_edittext_form"
+            android:layout_height="100dip"
+            android:text="" />
+    </LinearLayout>
+
+    <LinearLayout style="@style/style_layout_form" >
+
+        <TextView
+            style="@style/style_textview_common"
+            android:text="经指定通道调入(外省动物)" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dip"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+
+            <RadioGroup
+                android:id="@+id/rg_special_channelIn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <RadioButton
+                    android:id="@+id/rb_special_channelIn_yes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="是" />
+
+                <RadioButton
+                    android:id="@+id/rb_special_channelIn_no"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="否" />
+            </RadioGroup>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout style="@style/style_layout_form" >
+
+        <TextView
+            style="@style/style_textview_common"
+            android:text="临床健康状况" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dip"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+
+            <RadioGroup
+                android:id="@+id/rg_animal_health"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <RadioButton
+                    android:id="@+id/rb_animal_health_yes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="正常" />
+
+                <RadioButton
+                    android:id="@+id/rb_animal_health_no"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="异常" />
+            </RadioGroup>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout style="@style/style_layout_form" >
+
+        <TextView
+            style="@style/style_textview_common"
+            android:text="是否佩戴规定牲畜耳标" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dip"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+
+            <RadioGroup
+                android:id="@+id/rg_animal_ear_tag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <RadioButton
+                    android:id="@+id/rb_animal_ear_tag_yes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="是" />
+
+                <RadioButton
+                    android:id="@+id/rb_animal_ear_tag_no"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="否" />
+            </RadioGroup>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout style="@style/style_layout_form" >
+
+        <TextView
+            style="@style/style_textview_common"
+            android:text="到达地点" />
+
+        <EditText
+            android:id="@+id/et_target_address"
+            style="@style/style_edittext_form"
+            android:text="" />
+    </LinearLayout>
+
+    <LinearLayout style="@style/style_layout_form" >
+
+        <TextView
+            style="@style/style_textview_common"
+            android:text="启运时间" />
+
+        <TextView
+            android:id="@+id/tv_start_trans_time"
+            style="@style/style_edittext_form"
+            android:gravity="center_vertical"
+            android:text="" />
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/style_layout_form"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            style="@style/style_textview_common"
+            android:layout_gravity="top"
+            android:text="注意事项" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dip"
+            android:gravity="center_vertical"
+            android:orientation="vertical" >
+
+            <TextView
+                style="@style/style_textview_common"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="　　申报人依照《中华人民共和国动物防疫法》，《动物检疫管理办法》有关规定，特申报检疫。\n　　并对所填信息的真实性、完整性负责，如与事实不符，官方兽医有权终止检疫，由此导致的后果由申报人自行负责。"
+                android:textColor="#FF0000" />
+
+            <CheckBox
+                android:id="@+id/cbx_read_warn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:scaleX="0.75"
+                android:scaleY="0.75"
+                android:text="我已阅读上述注意事项" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout style="@style/style_layout_form" >
+
+        <TextView
+            style="@style/style_textview_common"
+            android:text="报检员签字" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/tv_view_signature"
+                style="@style/Style_Button"
+                android:layout_width="75dip"
+                android:layout_height="35dip"
+                android:layout_marginLeft="10dip"
+                android:text="查看签名" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout style="@style/style_layout_form" >
+
+        <TextView
+            style="@style/style_textview_common"
+            android:text="审核" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dip"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+
+            <RadioGroup
+                android:id="@+id/rg_apply_confirm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <RadioButton
+                    android:id="@+id/rg_apply_confirm_yes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="受理" />
+
+                <RadioButton
+                    android:id="@+id/rg_apply_confirm_no"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="不受理" />
+            </RadioGroup>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_do_check_time"
+        style="@style/style_layout_form" >
+
+        <TextView
+            style="@style/style_textview_common"
+            android:text="拟派员于" />
+
+        <TextView
+            android:id="@+id/tv_do_check_time"
+            style="@style/style_edittext_form"
+            android:gravity="center_vertical"
+            android:text="" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_do_check_address"
+        style="@style/style_layout_form" >
+
+        <TextView
+            style="@style/style_textview_common"
+            android:text="实施检疫地点" />
+
+        <EditText
+            android:id="@+id/et_do_check_address"
+            style="@style/style_edittext_form"
+            android:text="" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_reject_reason"
+        style="@style/style_layout_form"
+        android:layout_height="105dip"
+        android:visibility="gone" >
+
+        <TextView
+            style="@style/style_textview_common"
+            android:layout_gravity="top"
+            android:text="不受理理由" />
+
+        <EditText
+            android:id="@+id/et_reject_reason"
+            style="@style/style_edittext_form"
+            android:layout_height="100dip"
+            android:text="" />
+    </LinearLayout>
+    
+    <LinearLayout style="@style/style_layout_form" >
+
+        <TextView
+            style="@style/style_textview_common"
+            android:text="经办人" />
+
+        <EditText
+            android:id="@+id/et_confirm_user_name"
+            style="@style/style_edittext_form"
+            android:text="" />
+    </LinearLayout>
+
+</LinearLayout>

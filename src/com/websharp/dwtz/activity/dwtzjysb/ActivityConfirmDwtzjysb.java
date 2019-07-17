@@ -33,7 +33,9 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.LinearLayout.LayoutParams;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import de.greenrobot.dao.query.WhereCondition;
@@ -65,6 +67,7 @@ import com.websharp.dwtz.http.SJECHttpHandler;
 import com.websharp.util.UtilSign;
 import com.websharp.widget.WriteDialogListener;
 import com.websharp.widget.WritePadDialog;
+import com.websharputil.common.ConvertUtil;
 import com.websharputil.common.LogUtil;
 import com.websharputil.common.PrefUtil;
 import com.websharputil.common.Util;
@@ -75,7 +78,7 @@ import com.websharputil.json.JSONUtils;
 public class ActivityConfirmDwtzjysb extends BaseActivity {
 
 	private ImageView iv_camera;
-
+	LinearLayout layout_sbrmc;
 	// 进场生猪情况
 	EditText et_apply_user_name;
 	EditText et_inspection_staff;
@@ -90,6 +93,10 @@ public class ActivityConfirmDwtzjysb extends BaseActivity {
 
 	TextView tv_apply_time;
 	TextView tv_start_trans_time;
+	TextView tv_do_check_time;
+	EditText et_do_check_address;
+	EditText et_reject_reason;
+	EditText et_confirm_user_name;
 
 	CheckBox cbx_read_warn;
 
@@ -99,35 +106,28 @@ public class ActivityConfirmDwtzjysb extends BaseActivity {
 	RadioButton rb_animal_health_no;
 	RadioButton rb_animal_ear_tag_yes;
 	RadioButton rb_animal_ear_tag_no;
+	RadioButton rg_apply_confirm_yes;
+	RadioButton rg_apply_confirm_no;
+	RadioGroup rg_apply_confirm;
+
+	LinearLayout layout_do_check_time_picker;
+	LinearLayout layout_do_check_time;
+	LinearLayout layout_do_check_address;
+	LinearLayout layout_reject_reason;
 
 	Spinner sp_butchery;
 
-	Button tv_view_signature, tv_do_signature;
+	Button tv_view_signature;
 	boolean isReWriteSignature = false;
 
 	Button btn_submit, btn_load_data;
 
-	LinearLayout layout_apply_time, layout_start_trans_time;
-
 	LinearLayout layout_jcsl, layout_kcsl;
 
-	WheelView wv_hour_apply_time;
-	WheelView wv_min_apply_time;
-	WheelView wv_day_apply_time;
-	NumericWheelAdapter hourAdapter_start;
-	ArrayWheelAdapter<String> minAdapter_start;
+	WheelView wv_day_do_check_time;
 	DayArrayAdapter dayAdapter_start;
 
-	WheelView wv_hour_start_trans_time;
-	WheelView wv_min_start_trans_time;
-	WheelView wv_day_start_trans_time;
-	NumericWheelAdapter hourAdapter_end;
-	ArrayWheelAdapter<String> minAdapter_end;
-	DayArrayAdapter dayAdapter_end;
-
 	ArrayAdapter adapterButchery;
-	private String curApplyTime = "";
-	private String curStartTransTime = "";
 	private String curImgPath = "";
 
 	ImageView iv_spinner_apply_user_name;
@@ -146,7 +146,7 @@ public class ActivityConfirmDwtzjysb extends BaseActivity {
 
 		@Override
 		public void onReceive(Context context, Intent intent) {
-	
+
 			if (intent.getAction().equals(Constant.ACTION_OPEN_ATTACH)) {
 				Bundle b = intent.getExtras();
 				String url = b.getString("url", "");
@@ -248,29 +248,7 @@ public class ActivityConfirmDwtzjysb extends BaseActivity {
 					}).show();
 
 			break;
-		case R.id.iv_spinner_apply_user_name:
-			showDialogListView(listGoodsowner, et_apply_user_name);
-			break;
-		case R.id.tv_apply_time:
-			layout_start_trans_time.setVisibility(View.GONE);
-			if (layout_apply_time.getVisibility() == View.VISIBLE) {
-				layout_apply_time.setVisibility(View.GONE);
-			} else {
-				layout_apply_time.setVisibility(View.VISIBLE);
-			}
-			break;
-		case R.id.tv_start_trans_time:
-			layout_apply_time.setVisibility(View.GONE);
-			if (layout_start_trans_time.getVisibility() == View.VISIBLE) {
-				layout_start_trans_time.setVisibility(View.GONE);
-			} else {
-				layout_start_trans_time.setVisibility(View.VISIBLE);
-			}
-			break;
-		case R.id.btn_load_data:
-			new SJECHttpHandler(cbLoadApplyUserData, ActivityConfirmDwtzjysb.this)
-					.GetAnimalSlaughterImmuneApplyData(GlobalData.curButcheryID, getText(et_apply_user_name));
-			break;
+
 		case R.id.tv_do_signature:
 			doSignature();
 			break;
@@ -290,13 +268,20 @@ public class ActivityConfirmDwtzjysb extends BaseActivity {
 				}
 			}
 			break;
+		case R.id.tv_do_check_time:
+			if (layout_do_check_time_picker.getVisibility() == View.VISIBLE) {
+				layout_do_check_time_picker.setVisibility(View.GONE);
+			} else {
+				layout_do_check_time_picker.setVisibility(View.VISIBLE);
+			}
+			break;
 		}
 	}
 
 	@Override
 	public void initLayout() {
 		// TODO Auto-generated method stub
-		setContentView(R.layout.activity_add_dwtzjysb);
+		setContentView(R.layout.activity_confirm_dwtzjysb);
 	}
 
 	@Override
@@ -306,7 +291,10 @@ public class ActivityConfirmDwtzjysb extends BaseActivity {
 		iv_camera.setVisibility(View.GONE);
 
 		btn_submit = (Button) findViewById(R.id.btn_submit);
+
+		layout_sbrmc = (LinearLayout) findViewById(R.id.layout_sbrmc);
 		btn_load_data = (Button) findViewById(R.id.btn_load_data);
+		btn_load_data.setVisibility(View.GONE);
 
 		et_apply_user_name = (EditText) findViewById(R.id.et_apply_user_name);
 		et_inspection_staff = (EditText) findViewById(R.id.et_inspection_staff);
@@ -318,9 +306,18 @@ public class ActivityConfirmDwtzjysb extends BaseActivity {
 		et_Origin = (EditText) findViewById(R.id.et_Origin);
 		et_entranceImmune_num = (EditText) findViewById(R.id.et_entranceImmune_num);
 		et_target_address = (EditText) findViewById(R.id.et_target_address);
+		et_reject_reason = (EditText)findViewById(R.id.et_reject_reason);
+		et_confirm_user_name = (EditText)findViewById(R.id.et_confirm_user_name);
 
 		tv_apply_time = (TextView) findViewById(R.id.tv_apply_time);
 		tv_start_trans_time = (TextView) findViewById(R.id.tv_start_trans_time);
+		tv_do_check_time = (TextView) findViewById(R.id.tv_do_check_time);
+		et_do_check_address = (EditText)findViewById(R.id.et_do_check_address);
+
+		layout_do_check_time_picker = (LinearLayout) findViewById(R.id.layout_do_check_time_picker);
+		layout_do_check_time = (LinearLayout) findViewById(R.id.layout_do_check_time);
+		layout_do_check_address = (LinearLayout) findViewById(R.id.layout_do_check_address);
+		layout_reject_reason = (LinearLayout) findViewById(R.id.layout_reject_reason);
 
 		cbx_read_warn = (CheckBox) findViewById(R.id.cbx_read_warn);
 		layout_jcsl = (LinearLayout) findViewById(R.id.layout_jcsl);
@@ -335,87 +332,87 @@ public class ActivityConfirmDwtzjysb extends BaseActivity {
 		rb_animal_ear_tag_yes = (RadioButton) findViewById(R.id.rb_animal_ear_tag_yes);
 		rb_animal_ear_tag_no = (RadioButton) findViewById(R.id.rb_animal_ear_tag_no);
 
+		rg_apply_confirm = (RadioGroup) findViewById(R.id.rg_apply_confirm);
+		rg_apply_confirm_yes = (RadioButton) findViewById(R.id.rg_apply_confirm_yes);
+		rg_apply_confirm_no = (RadioButton) findViewById(R.id.rg_apply_confirm_no);
+
 		tv_view_signature = (Button) findViewById(R.id.tv_view_signature);
-		tv_do_signature = (Button) findViewById(R.id.tv_do_signature);
 
 		sp_butchery = (Spinner) findViewById(R.id.sp_butchery);
 
 		iv_spinner_apply_user_name = (ImageView) findViewById(R.id.iv_spinner_apply_user_name);
-
-		layout_apply_time = (LinearLayout) findViewById(R.id.layout_apply_time);
-		layout_start_trans_time = (LinearLayout) findViewById(R.id.layout_start_trans_time);
+		iv_spinner_apply_user_name.setVisibility(View.GONE);
 
 		layout_downloading = (LinearLayout) findViewById(R.id.layout_downloading);
 		tv_downloading = (TextView) findViewById(R.id.tv_downloading);
 
 		btn_submit.setOnClickListener(this);
-		btn_load_data.setOnClickListener(this);
-		tv_apply_time.setOnClickListener(this);
-		tv_start_trans_time.setOnClickListener(this);
-		iv_spinner_apply_user_name.setOnClickListener(this);
-		tv_do_signature.setOnClickListener(this);
 		tv_view_signature.setOnClickListener(this);
+		tv_do_check_time.setOnClickListener(this);
+
+		sp_butchery.setEnabled(false);
+		et_apply_user_name.setEnabled(false);
+		et_inspection_staff.setEnabled(false);
+		et_inspection_staff_telephone.setEnabled(false);
+		et_animal_type.setEnabled(false);
+		et_quar_count.setEnabled(false);
+		et_rest_count.setEnabled(false);
+		et_animal_count.setEnabled(false);
+		et_Origin.setEnabled(false);
+		et_entranceImmune_num.setEnabled(false);
+		et_target_address.setEnabled(false);
+		rb_special_channelIn_yes.setEnabled(false);
+		rb_special_channelIn_no.setEnabled(false);
+		rb_animal_health_yes.setEnabled(false);
+		rb_animal_health_no.setEnabled(false);
+		rb_animal_ear_tag_yes.setEnabled(false);
+		rb_animal_ear_tag_no.setEnabled(false);
+		cbx_read_warn.setEnabled(false);
+
+		rg_apply_confirm.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+
+			@Override
+			public void onCheckedChanged(RadioGroup group, int checkedId) {
+				int radioButtonId = group.getCheckedRadioButtonId();
+				if (radioButtonId == R.id.rg_apply_confirm_yes) {
+					layout_do_check_time.setVisibility(View.VISIBLE);
+					layout_do_check_address.setVisibility(View.VISIBLE);
+					layout_reject_reason.setVisibility(View.GONE);
+				} else if (radioButtonId == R.id.rg_apply_confirm_no) {
+					layout_do_check_time.setVisibility(View.GONE);
+					layout_do_check_address.setVisibility(View.GONE);
+					layout_reject_reason.setVisibility(View.VISIBLE);
+				}
+			}
+		});
+
+		LayoutParams lp = (LayoutParams) layout_sbrmc.getLayoutParams();
+		lp.height = ConvertUtil.dip2px(this, 40);
+		layout_sbrmc.setLayoutParams(lp);
 	}
 
 	private String checkContent() {
 		String result = "";
 
-		if (listButcheryID.get(sp_butchery.getSelectedItemPosition()).isEmpty()) {
-			return "所属屠宰场不能为空";
+		if (rg_apply_confirm_yes.isChecked()) {
+			if (getText(tv_do_check_time).isEmpty()) {
+				return "实施检疫时间不能为空";
+			}
+			
+			if (getText(et_do_check_address).isEmpty()) {
+				return "实施检疫地点不能为空";
+			}
+		}else{
+			if (getText(et_reject_reason).isEmpty()) {
+				return "不受理理由不能为空";
+			}
+		}
+		
+		if (getText(et_confirm_user_name).isEmpty()) {
+			return "经办人不能为空";
 		}
 
-		if (getText(et_apply_user_name).isEmpty()) {
-			return "申报人名称不能为空";
-		}
-
-		if (getText(tv_apply_time).isEmpty()) {
-			return "报检时间不能为空";
-		}
-
-		if (getText(et_inspection_staff).isEmpty()) {
-			return "报检员姓名不能为空";
-		}
-
-		if (getText(et_inspection_staff_telephone).isEmpty()) {
-			return "联系电话不能为空";
-		}
-
-		if (getText(et_animal_type).isEmpty()) {
-			return "动物种类不能为空";
-		}
-
-		if (getText(et_animal_count).isEmpty()) {
-			return "总数量不能为空";
-		}
-
-		if (getText(et_Origin).isEmpty()) {
-			return "动物产地不能为空";
-		}
-
-		if (getText(et_entranceImmune_num).isEmpty()) {
-			return "入场检疫证明编号不能为空";
-		}
-
-		if (getText(et_target_address).isEmpty()) {
-			return "到达地点不能为空";
-		}
-
-		if (getText(tv_start_trans_time).isEmpty()) {
-			return "启运时间不能为空";
-		}
-
-		if (!cbx_read_warn.isChecked()) {
-			return "注意事项请阅读并确认";
-		}
-
-		if (curImgPath.isEmpty() && tv_view_signature.getTag() == null) {
-			return "请报检员签名";
-		}
 		return result;
-	}
-
-	private void clearContent() {
-
 	}
 
 	@Override
@@ -435,7 +432,6 @@ public class ActivityConfirmDwtzjysb extends BaseActivity {
 				listButcheryID.add(GlobalData.listButchery.get(i).InnerID);
 			}
 		}
-
 
 		adapterButchery = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listItem);
 		adapterButchery.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -465,7 +461,7 @@ public class ActivityConfirmDwtzjysb extends BaseActivity {
 		int position = getIntent().getExtras().getInt("position", -1);
 		if (position != -1) {
 			curApply = GlobalData.listAnimalSlaughterImmuneApply.get(position);
-			
+
 			et_apply_user_name.setText(curApply.apply_user_name);
 			tv_apply_time
 					.setText(curApply.apply_time.replaceAll("/", "-").substring(0, curApply.apply_time.length() - 3));
@@ -503,7 +499,7 @@ public class ActivityConfirmDwtzjysb extends BaseActivity {
 			for (int i = 0; i < listButcheryID.size(); i++) {
 				if (curApply.butchery_id.equals(listButcheryID.get(i))) {
 					sp_butchery.setSelection(i);
-					GlobalData.curButcheryID  = curApply.butchery_id;
+					GlobalData.curButcheryID = curApply.butchery_id;
 					break;
 				}
 			}
@@ -515,8 +511,8 @@ public class ActivityConfirmDwtzjysb extends BaseActivity {
 				arrMinutes[i] = (i > 9 ? i : ("0" + i)) + "分";
 			}
 		}
-		initDatePickerApplyTime();
-		initDatePickerStartTransTime();
+
+		initDateDoCheckTime();
 	}
 
 	AsyncHttpCallBack cb = new AsyncHttpCallBack() {
@@ -588,25 +584,22 @@ public class ActivityConfirmDwtzjysb extends BaseActivity {
 
 	private void AsyncAddOrder() {
 
-		curApply.apply_user_name = getText(et_apply_user_name);
-		curApply.apply_time = getText(tv_apply_time) + ":00";
-		curApply.inspection_staff = getText(et_inspection_staff);
-		curApply.inspection_staff_telephone = getText(et_inspection_staff_telephone);
-		curApply.animal_type = getText(et_animal_type);
-		curApply.animal_count = getText(et_animal_count);
-		curApply.animal_origin = getText(et_Origin);
-		curApply.entrance_immune_num = getText(et_entranceImmune_num);
-		curApply.is_special_channel_in = rb_special_channelIn_yes.isChecked() ? "1" : "0";
-		curApply.clinic_health = rb_animal_health_yes.isChecked() ? "1" : "0";
-		curApply.is_animal_ear_tag = rb_animal_ear_tag_yes.isChecked() ? "1" : "0";
-		curApply.target_address = getText(et_target_address);
-		curApply.start_trans_time = getText(tv_start_trans_time) + ":00";
-		curApply.is_read_warn = cbx_read_warn.isChecked() ? "1" : "0";
-		curApply.butchery_id = GlobalData.curButcheryID;
-
-		String str = JSONUtils.toJson2(curApply, null, null);
+		JSONObject jobj = new JSONObject();
 		try {
-			new SJECHttpHandler(cb, this).addAnimalSlaughterImmuneApply(str, curImgPath);
+			jobj.put("innerid", curApply.innerid);
+			jobj.put("confirm_result", rg_apply_confirm_yes.isChecked()?"true":"false");
+			jobj.put("do_check_time", getText(tv_do_check_time));
+			jobj.put("do_check_address", getText(et_do_check_address));
+			jobj.put("reject_reason", getText(et_reject_reason));
+			jobj.put("confirm_usr_name",getText(et_confirm_user_name));
+		} catch (JSONException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
+		String str = jobj.toString();
+		try {
+			new SJECHttpHandler(cb, this).ConfirmAnimalSlaughterImmuneApply(str);
 		} catch (Exception e) {
 			e.printStackTrace();
 			Util.createToast(ActivityConfirmDwtzjysb.this, R.string.msg_control_failed, 3000).show();
@@ -620,65 +613,42 @@ public class ActivityConfirmDwtzjysb extends BaseActivity {
 		unregisterReceiver(receiver);
 	}
 
-	private void initDatePickerApplyTime() {
-		wv_hour_apply_time = (WheelView) findViewById(R.id.wv_hour_apply_time);
-		hourAdapter_start = new NumericWheelAdapter(this, 0, 23, "%02d点");
-		hourAdapter_start.setItemResource(R.layout.wheel_text_hour);
-		hourAdapter_start.setItemTextResource(R.id.text);
-		wv_hour_apply_time.setViewAdapter(hourAdapter_start);
-		wv_hour_apply_time.setCyclic(true);
+	private void doSignature() {
+		WritePadDialog mWritePadDialog = new WritePadDialog(ActivityConfirmDwtzjysb.this, new WriteDialogListener() {
+			@Override
+			public void onPaintDone(Object object) {
+				isReWriteSignature = true;
+				String filePath = UtilSign.createSignFile((Bitmap) object);
+				tv_view_signature.setTag(filePath);
+				curImgPath = filePath;
+				tv_view_signature.setVisibility(View.VISIBLE);
+			}
+		});
+		mWritePadDialog.show();
+		super.SetDialogFullScreen(mWritePadDialog);
+	}
 
-		// 分钟
-		wv_min_apply_time = (WheelView) findViewById(R.id.wv_min_apply_time);
-		// （min ,max ,format）
-		// NumericWheelAdapter minAdapter = new NumericWheelAdapter(this, 0, 59,
-		// "%02d");
-		minAdapter_start = new ArrayWheelAdapter<String>(this, arrMinutes);
+	private void initDateDoCheckTime() {
 
-		minAdapter_start.setItemResource(R.layout.wheel_text_min);
-		minAdapter_start.setItemTextResource(R.id.text);
-		wv_min_apply_time.setViewAdapter(minAdapter_start);
-		wv_min_apply_time.setCyclic(true);
 		// 当前时间
 		// set current time
 		Calendar calendar = Calendar.getInstance(Locale.CHINA);
-		wv_hour_apply_time.setCurrentItem(calendar.get(Calendar.HOUR_OF_DAY));
-		wv_min_apply_time.setCurrentItem(calendar.get(Calendar.MINUTE));
 
-		wv_day_apply_time = (WheelView) findViewById(R.id.wv_day_apply_time);
+		wv_day_do_check_time = (WheelView) findViewById(R.id.wv_day_do_check_time);
 		dayAdapter_start = new DayArrayAdapter(this, calendar);
-		wv_day_apply_time.setViewAdapter(dayAdapter_start);
-		wv_day_apply_time.setCurrentItem(10);
-		wv_hour_apply_time.setDrawShadows(false);
-		wv_min_apply_time.setDrawShadows(false);
-		wv_day_apply_time.setDrawShadows(false);
+		wv_day_do_check_time.setViewAdapter(dayAdapter_start);
+		wv_day_do_check_time.setCurrentItem(10);
+		wv_day_do_check_time.setDrawShadows(false);
 
-		wv_day_apply_time.addClickingListener(new OnWheelClickedListener() {
+		wv_day_do_check_time.addClickingListener(new OnWheelClickedListener() {
 
 			@Override
 			public void onItemClicked(WheelView wheel, int itemIndex) {
-				// TODO Auto-generated method stub
 
 			}
 		});
 
-		wv_hour_apply_time.addClickingListener(new OnWheelClickedListener() {
-
-			@Override
-			public void onItemClicked(WheelView wheel, int itemIndex) {
-				wheel.setCurrentItem(itemIndex, true);
-			}
-		});
-
-		wv_min_apply_time.addClickingListener(new OnWheelClickedListener() {
-
-			@Override
-			public void onItemClicked(WheelView wheel, int itemIndex) {
-				wheel.setCurrentItem(itemIndex, true);
-			}
-		});
-
-		wv_day_apply_time.addScrollingListener(new OnWheelScrollListener() {
+		wv_day_do_check_time.addScrollingListener(new OnWheelScrollListener() {
 
 			@Override
 			public void onScrollingStarted(WheelView wheel) {
@@ -691,46 +661,14 @@ public class ActivityConfirmDwtzjysb extends BaseActivity {
 			}
 		});
 
-		wv_hour_apply_time.addScrollingListener(new OnWheelScrollListener() {
-
-			@Override
-			public void onScrollingStarted(WheelView wheel) {
-
-			}
-
-			@Override
-			public void onScrollingFinished(WheelView wheel) {
-				GetApplyTime();
-			}
-		});
-
-		wv_min_apply_time.addScrollingListener(new OnWheelScrollListener() {
-
-			@Override
-			public void onScrollingStarted(WheelView wheel) {
-
-			}
-
-			@Override
-			public void onScrollingFinished(WheelView wheel) {
-				GetApplyTime();
-			}
-		});
 		GetApplyTime();
 	}
 
 	private void GetApplyTime() {
 		Calendar newCalendar = (Calendar) Calendar.getInstance(Locale.CHINA).clone();
-		newCalendar.roll(Calendar.DAY_OF_YEAR, -10 + wv_day_apply_time.getCurrentItem());
+		newCalendar.roll(Calendar.DAY_OF_YEAR, -10 + wv_day_do_check_time.getCurrentItem());
 		String str = new SimpleDateFormat("yyyy-MM-dd").format(newCalendar.getTime());
-		curApplyTime = new SimpleDateFormat("yyyy-MM-dd").format(newCalendar.getTime());
-		str += " " + hourAdapter_start.getItemText(wv_hour_apply_time.getCurrentItem()).toString().replace("点", ":");
-		str += minAdapter_start.getItemText(wv_min_apply_time.getCurrentItem()).toString().replace("分", "");
-		tv_apply_time.setText(str);
-		curApplyTime += " "
-				+ hourAdapter_start.getItemText(wv_hour_apply_time.getCurrentItem()).toString().replace("点", ":")
-				+ minAdapter_start.getItemText(wv_min_apply_time.getCurrentItem()).toString().replace("分", ":00");
-		System.err.println(curApplyTime);
+		tv_do_check_time.setText(str);
 	}
 
 	private class DayArrayAdapter extends AbstractWheelTextAdapter {
@@ -788,133 +726,5 @@ public class ActivityConfirmDwtzjysb extends BaseActivity {
 		protected CharSequence getItemText(int index) {
 			return "";
 		}
-	}
-
-	private void initDatePickerStartTransTime() {
-		wv_hour_start_trans_time = (WheelView) findViewById(R.id.wv_hour_start_trans_time);
-		hourAdapter_end = new NumericWheelAdapter(this, 0, 23, "%02d点");
-		hourAdapter_end.setItemResource(R.layout.wheel_text_hour);
-		hourAdapter_end.setItemTextResource(R.id.text);
-		wv_hour_start_trans_time.setViewAdapter(hourAdapter_end);
-		wv_hour_start_trans_time.setCyclic(true);
-
-		// 分钟
-		wv_min_start_trans_time = (WheelView) findViewById(R.id.wv_min_start_trans_time);
-		// （min ,max ,format）
-		// NumericWheelAdapter minAdapter = new NumericWheelAdapter(this, 0, 59,
-		// "%02d");
-		minAdapter_end = new ArrayWheelAdapter<String>(this, arrMinutes);
-
-		minAdapter_end.setItemResource(R.layout.wheel_text_min);
-		minAdapter_end.setItemTextResource(R.id.text);
-		wv_min_start_trans_time.setViewAdapter(minAdapter_end);
-		wv_min_start_trans_time.setCyclic(true);
-		// 当前时间
-		// set current time
-		Calendar calendar = Calendar.getInstance(Locale.CHINA);
-		wv_hour_start_trans_time.setCurrentItem(calendar.get(Calendar.HOUR_OF_DAY));
-		wv_min_start_trans_time.setCurrentItem(calendar.get(Calendar.MINUTE));
-
-		wv_day_start_trans_time = (WheelView) findViewById(R.id.wv_day_start_trans_time);
-		dayAdapter_end = new DayArrayAdapter(this, calendar);
-		wv_day_start_trans_time.setViewAdapter(dayAdapter_end);
-		wv_day_start_trans_time.setCurrentItem(10);
-		wv_hour_start_trans_time.setDrawShadows(false);
-		wv_min_start_trans_time.setDrawShadows(false);
-		wv_day_start_trans_time.setDrawShadows(false);
-
-		wv_day_start_trans_time.addClickingListener(new OnWheelClickedListener() {
-
-			@Override
-			public void onItemClicked(WheelView wheel, int itemIndex) {
-				wheel.setCurrentItem(itemIndex, true);
-			}
-		});
-
-		wv_hour_start_trans_time.addClickingListener(new OnWheelClickedListener() {
-
-			@Override
-			public void onItemClicked(WheelView wheel, int itemIndex) {
-				wheel.setCurrentItem(itemIndex, true);
-			}
-		});
-
-		wv_min_start_trans_time.addClickingListener(new OnWheelClickedListener() {
-
-			@Override
-			public void onItemClicked(WheelView wheel, int itemIndex) {
-				wheel.setCurrentItem(itemIndex, true);
-			}
-		});
-
-		wv_day_start_trans_time.addScrollingListener(new OnWheelScrollListener() {
-
-			@Override
-			public void onScrollingStarted(WheelView wheel) {
-
-			}
-
-			@Override
-			public void onScrollingFinished(WheelView wheel) {
-				GetStartTransTime();
-			}
-		});
-
-		wv_hour_start_trans_time.addScrollingListener(new OnWheelScrollListener() {
-
-			@Override
-			public void onScrollingStarted(WheelView wheel) {
-
-			}
-
-			@Override
-			public void onScrollingFinished(WheelView wheel) {
-				GetStartTransTime();
-			}
-		});
-
-		wv_min_start_trans_time.addScrollingListener(new OnWheelScrollListener() {
-
-			@Override
-			public void onScrollingStarted(WheelView wheel) {
-
-			}
-
-			@Override
-			public void onScrollingFinished(WheelView wheel) {
-				GetStartTransTime();
-			}
-		});
-		GetStartTransTime();
-	}
-
-	private void GetStartTransTime() {
-		Calendar newCalendar = (Calendar) Calendar.getInstance(Locale.CHINA).clone();
-		newCalendar.roll(Calendar.DAY_OF_YEAR, -10 + wv_day_start_trans_time.getCurrentItem());
-		String str = new SimpleDateFormat("yyyy-MM-dd").format(newCalendar.getTime());
-		curStartTransTime = new SimpleDateFormat("yyyy-MM-dd").format(newCalendar.getTime());
-		str += " "
-				+ hourAdapter_end.getItemText(wv_hour_start_trans_time.getCurrentItem()).toString().replace("点", ":");
-		str += minAdapter_end.getItemText(wv_min_start_trans_time.getCurrentItem()).toString().replace("分", "");
-		tv_start_trans_time.setText(str);
-		curStartTransTime += " "
-				+ hourAdapter_end.getItemText(wv_hour_start_trans_time.getCurrentItem()).toString().replace("点", ":")
-				+ minAdapter_end.getItemText(wv_min_start_trans_time.getCurrentItem()).toString().replace("分", ":00");
-		System.err.println(curStartTransTime);
-	}
-
-	private void doSignature() {
-		WritePadDialog mWritePadDialog = new WritePadDialog(ActivityConfirmDwtzjysb.this, new WriteDialogListener() {
-			@Override
-			public void onPaintDone(Object object) {
-				isReWriteSignature = true;
-				String filePath = UtilSign.createSignFile((Bitmap) object);
-				tv_view_signature.setTag(filePath);
-				curImgPath = filePath;
-				tv_view_signature.setVisibility(View.VISIBLE);
-			}
-		});
-		mWritePadDialog.show();
-		super.SetDialogFullScreen(mWritePadDialog);
 	}
 }
