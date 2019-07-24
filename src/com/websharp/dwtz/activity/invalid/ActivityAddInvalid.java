@@ -18,6 +18,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -51,6 +53,12 @@ public class ActivityAddInvalid extends BaseActivity {
 	EditText et_Remark;
 	Spinner sp_butchery_group;
 	ImageView iv_camera;
+	
+
+	RadioButton rb_invalid_type_zq;
+	RadioButton rb_invalid_type_zh;
+	RadioButton rb_invalid_type_bhg;
+	RadioGroup rg_invalid_type;
 
 	String QuarantineID = "";
 	String DeliveryNum = "";
@@ -147,6 +155,11 @@ public class ActivityAddInvalid extends BaseActivity {
 		iv_spinner_qr = (ImageView) findViewById(R.id.iv_spinner_qr);
 		iv_spinner_qr_2 = (ImageView) findViewById(R.id.iv_spinner_qr_2);
 		layout_back = (LinearLayout) findViewById(R.id.layout_back);
+		
+		rg_invalid_type = (RadioGroup) findViewById(R.id.rg_invalid_type);
+		rb_invalid_type_zq = (RadioButton) findViewById(R.id.rb_invalid_type_zq);
+		rb_invalid_type_zh = (RadioButton) findViewById(R.id.rb_invalid_type_zh);
+		
 		layout_back.setOnClickListener(this);
 		iv_spinner_qr.setOnClickListener(this);
 		iv_spinner_qr_2.setOnClickListener(this);
@@ -156,6 +169,7 @@ public class ActivityAddInvalid extends BaseActivity {
 		btn_gen_scan_code.setOnClickListener(this);
 		iv_spinner_processreason.setOnClickListener(this);
 		iv_spinner_processcomment.setOnClickListener(this);
+		
 
 		adapterButcheryGroup = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,
 				listButcheryGroupName);
@@ -300,6 +314,14 @@ public class ActivityAddInvalid extends BaseActivity {
 				if (obj.optString("result").equals("true")) {
 					Util.createToast(ActivityAddInvalid.this, R.string.msg_control_success_continue_operator, 3000)
 							.show();
+					et_UnqualiedScanCode.setText("");
+					et_ProcessComment.setText("");
+					et_ProcessReason.setText("");
+					et_Remark.setText("");
+					et_UnqualiedScanCode_2.setText("");
+					rb_invalid_type_zq.setChecked(false);
+					rb_invalid_type_zh.setChecked(false);
+					rb_invalid_type_bhg.setChecked(false);
 					getApplication().sendBroadcast(new Intent(Constant.ACTION_REFRESH_LIST_UNQUALIED));
 					// finish();
 				} else {
@@ -340,6 +362,10 @@ public class ActivityAddInvalid extends BaseActivity {
 		if (sp_butchery_group.getSelectedItemPosition() == AdapterView.INVALID_POSITION) {
 			return "请选择一个屠宰小组";
 		}
+		
+		if(rg_invalid_type.getCheckedRadioButtonId() == -1){
+			return "请选择不合格记录类型";
+		}
 
 		return "";
 	}
@@ -353,6 +379,13 @@ public class ActivityAddInvalid extends BaseActivity {
 		json.addProperty("UnqualiedScanCode_2", getText(et_UnqualiedScanCode_2));
 		json.addProperty("ButcheryGroupID", listButcheryGroup.get(sp_butchery_group.getSelectedItemPosition()).InnerID);
 		json.addProperty("Remark", getText(et_Remark));
+		if(rg_invalid_type.getCheckedRadioButtonId()==rb_invalid_type_zq.getId()){
+			json.addProperty("Type", 0);
+		}else if(rg_invalid_type.getCheckedRadioButtonId()==rb_invalid_type_zh.getId()){
+			json.addProperty("Type", 1);
+		}else{
+			json.addProperty("Type", 2);
+		}
 
 		jsonImg = ActivityPicSend.getJsonImg().toString();
 		try {
