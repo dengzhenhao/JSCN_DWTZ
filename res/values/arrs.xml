@@ -9,5 +9,11 @@
         <item >鸭肉</item>
         <item >其它</item>
     </string-array>
+    
+    <string-array name="animal_type">
+        <item >猪</item>
+        <item >牛</item>
+        <item >羊</item>
+    </string-array>
 
 </resources>

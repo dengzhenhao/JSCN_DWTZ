@@ -43,6 +43,8 @@ public class EntityUnqualiedDao extends AbstractDao<EntityUnqualied, Void> {
         public final static Property Add_Time = new Property(17, String.class, "Add_Time", false, "ADD__TIME");
         public final static Property StaffNo = new Property(18, String.class, "StaffNo", false, "STAFF_NO");
         public final static Property ButcheryGroupID = new Property(19, String.class, "ButcheryGroupID", false, "BUTCHERY_GROUP_ID");
+        public final static Property Weight = new Property(20, String.class, "Weight", false, "WEIGHT");
+        public final static Property Type = new Property(21, String.class, "Type", false, "TYPE");
     };
 
 
@@ -77,7 +79,9 @@ public class EntityUnqualiedDao extends AbstractDao<EntityUnqualied, Void> {
                 "'ADD__USER_ID' TEXT," + // 16: Add_UserID
                 "'ADD__TIME' TEXT," + // 17: Add_Time
                 "'STAFF_NO' TEXT," + // 18: StaffNo
-                "'BUTCHERY_GROUP_ID' TEXT);"); // 19: ButcheryGroupID
+                "'BUTCHERY_GROUP_ID' TEXT," + // 19: ButcheryGroupID
+                "'WEIGHT' TEXT," + // 20: Weight
+                "'TYPE' TEXT);"); // 21: Type
     }
 
     /** Drops the underlying database table. */
@@ -190,6 +194,16 @@ public class EntityUnqualiedDao extends AbstractDao<EntityUnqualied, Void> {
         if (ButcheryGroupID != null) {
             stmt.bindString(20, ButcheryGroupID);
         }
+ 
+        String Weight = entity.getWeight();
+        if (Weight != null) {
+            stmt.bindString(21, Weight);
+        }
+ 
+        String Type = entity.getType();
+        if (Type != null) {
+            stmt.bindString(22, Type);
+        }
     }
 
     /** @inheritdoc */
@@ -221,7 +235,9 @@ public class EntityUnqualiedDao extends AbstractDao<EntityUnqualied, Void> {
             cursor.isNull(offset + 16) ? null : cursor.getString(offset + 16), // Add_UserID
             cursor.isNull(offset + 17) ? null : cursor.getString(offset + 17), // Add_Time
             cursor.isNull(offset + 18) ? null : cursor.getString(offset + 18), // StaffNo
-            cursor.isNull(offset + 19) ? null : cursor.getString(offset + 19) // ButcheryGroupID
+            cursor.isNull(offset + 19) ? null : cursor.getString(offset + 19), // ButcheryGroupID
+            cursor.isNull(offset + 20) ? null : cursor.getString(offset + 20), // Weight
+            cursor.isNull(offset + 21) ? null : cursor.getString(offset + 21) // Type
         );
         return entity;
     }
@@ -249,6 +265,8 @@ public class EntityUnqualiedDao extends AbstractDao<EntityUnqualied, Void> {
         entity.setAdd_Time(cursor.isNull(offset + 17) ? null : cursor.getString(offset + 17));
         entity.setStaffNo(cursor.isNull(offset + 18) ? null : cursor.getString(offset + 18));
         entity.setButcheryGroupID(cursor.isNull(offset + 19) ? null : cursor.getString(offset + 19));
+        entity.setWeight(cursor.isNull(offset + 20) ? null : cursor.getString(offset + 20));
+        entity.setType(cursor.isNull(offset + 21) ? null : cursor.getString(offset + 21));
      }
     
     /** @inheritdoc */

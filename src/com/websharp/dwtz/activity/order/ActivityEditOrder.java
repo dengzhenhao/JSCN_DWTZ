@@ -79,6 +79,9 @@ public class ActivityEditOrder extends BaseActivity {
 	// 提交情况
 	EditText et_OfficalVeterSign;
 	EditText et_Remark;
+	
+
+	Spinner sp_animal_type;
 
 	Button btn_submit;
 	Button btn_clear;
@@ -102,6 +105,12 @@ public class ActivityEditOrder extends BaseActivity {
 	EntityQuarantine quar;
 
 	boolean isInitObject = false;
+	
+
+	String[] arrAnimalType = null;
+	String animalType="";
+	ArrayAdapter adapterAnimalType;
+	
 
 	@Override
 	public void onClick(View v) {
@@ -309,6 +318,7 @@ public class ActivityEditOrder extends BaseActivity {
 
 		json.addProperty("OfficalVeterSign", getText(et_OfficalVeterSign));
 		json.addProperty("Remark", getText(et_Remark));
+		json.addProperty("animal_type", animalType);
 		try {
 			new SJECHttpHandler(cb, this).editOrder(quar.InnerID, json.toString());
 		} catch (Exception e) {
@@ -353,7 +363,8 @@ public class ActivityEditOrder extends BaseActivity {
 
 		sp_province = (Spinner) findViewById(R.id.sp_province);
 		sp_city = (Spinner) findViewById(R.id.sp_city);
-		sp_county = (Spinner) findViewById(R.id.sp_county);
+		sp_county = (Spinner) findViewById(R.id.sp_county);	
+		sp_animal_type = (Spinner)findViewById(R.id.sp_animal_type);
 
 		// 瘦肉精检测结果
 		et_CheckCount = (EditText) findViewById(R.id.et_CheckCount);
@@ -527,6 +538,29 @@ public class ActivityEditOrder extends BaseActivity {
 				listProcessComment.add(GlobalData.listCommonData.get(i).DataValue);
 			}
 		}
+		
+		arrAnimalType = getResources().getStringArray(
+				R.array.animal_type);
+		adapterAnimalType= new ArrayAdapter<String>(this,
+				android.R.layout.simple_spinner_item, arrAnimalType);
+
+		adapterAnimalType
+				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		sp_animal_type.setAdapter(adapterAnimalType);
+		sp_animal_type.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+			@Override
+			public void onItemSelected(AdapterView<?> arg0, View arg1,
+					int position, long arg3) {
+				animalType = arrAnimalType[position];
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) {
+
+			}
+		});
+		
+		sp_animal_type.setSelection(0);
 
 		Bundle b = getIntent().getExtras();
 		position = b.getInt("position", 0);
@@ -552,6 +586,13 @@ public class ActivityEditOrder extends BaseActivity {
 				for (int i = 0; i < listProvinceObject.size(); i++) {
 					if (quar.origin_province_id.equals(listProvinceObject.get(i).ID.toString())) {
 						sp_province.setSelection(i);
+						break;
+					}
+				}
+				
+				for(int i = 0; i<arrAnimalType.length;i++){
+					if(quar.animal_type.equals(arrAnimalType[i])){
+						sp_animal_type.setSelection(i);
 						break;
 					}
 				}

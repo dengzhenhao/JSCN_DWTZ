@@ -26,11 +26,13 @@ public class EntityUnqualied {
     public String Add_Time;
     public String StaffNo;
     public String ButcheryGroupID;
+    public String Weight;
+    public String Type;
 
     public EntityUnqualied() {
     }
 
-    public EntityUnqualied(String InnerID, String QuarantineId, String UnqualiedScanCode, String UnqualiedScanCode_2, String ButcheryID, String DeliveryNum, String SendTime, String GoodsOwner, String Origin, String QuarantineNum, String ImmuneTag, String CheckCount, String ProcessReason, String ProcessComment, String OfficalVeterSign, String Remark, String Add_UserID, String Add_Time, String StaffNo, String ButcheryGroupID) {
+    public EntityUnqualied(String InnerID, String QuarantineId, String UnqualiedScanCode, String UnqualiedScanCode_2, String ButcheryID, String DeliveryNum, String SendTime, String GoodsOwner, String Origin, String QuarantineNum, String ImmuneTag, String CheckCount, String ProcessReason, String ProcessComment, String OfficalVeterSign, String Remark, String Add_UserID, String Add_Time, String StaffNo, String ButcheryGroupID, String Weight, String Type) {
         this.InnerID = InnerID;
         this.QuarantineId = QuarantineId;
         this.UnqualiedScanCode = UnqualiedScanCode;
@@ -51,6 +53,8 @@ public class EntityUnqualied {
         this.Add_Time = Add_Time;
         this.StaffNo = StaffNo;
         this.ButcheryGroupID = ButcheryGroupID;
+        this.Weight = Weight;
+        this.Type = Type;
     }
 
     public String getInnerID() {
@@ -211,6 +215,22 @@ public class EntityUnqualied {
 
     public void setButcheryGroupID(String ButcheryGroupID) {
         this.ButcheryGroupID = ButcheryGroupID;
+    }
+
+    public String getWeight() {
+        return Weight;
+    }
+
+    public void setWeight(String Weight) {
+        this.Weight = Weight;
+    }
+
+    public String getType() {
+        return Type;
+    }
+
+    public void setType(String Type) {
+        this.Type = Type;
     }
 
 }

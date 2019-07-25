@@ -9,7 +9,7 @@
     <TextView
         style="@style/style_textview_common"
         android:layout_width="match_parent"
-        android:text="@string/lab_addorder_part_1" />
+        android:text="进场情况" />
 
     <LinearLayout style="@style/style_layout_form" >
 
@@ -34,6 +34,39 @@
             style="@style/style_edittext_form"
             android:gravity="center_vertical"
             android:text="" />
+    </LinearLayout>
+    
+    <LinearLayout
+        style="@style/style_layout_form"
+        android:layout_height="40dip" >
+
+        <TextView
+            style="@style/style_textview_common"
+            android:text="动物种类" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="35dip"
+            android:layout_marginLeft="20dip" >
+
+            <Spinner
+                android:id="@+id/sp_animal_type"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/shape_input"
+                android:gravity="center"
+                android:paddingLeft="10dip"
+                android:textAlignment="center" />
+
+            <ImageView
+                android:layout_width="10dip"
+                android:layout_height="10dip"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="3dip"
+                android:layout_marginRight="3dip"
+                android:background="@drawable/icon_spinner_corner" />
+        </RelativeLayout>
     </LinearLayout>
 
     <LinearLayout style="@style/style_layout_form" >

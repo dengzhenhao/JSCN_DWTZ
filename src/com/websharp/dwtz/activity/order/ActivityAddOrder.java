@@ -84,6 +84,8 @@ public class ActivityAddOrder extends BaseActivity {
 	// 提交情况
 	EditText et_OfficalVeterSign;
 	EditText et_Remark;
+	
+	Spinner sp_animal_type;
 
 	Button btn_submit;
 	Button btn_clear;
@@ -103,6 +105,9 @@ public class ActivityAddOrder extends BaseActivity {
 	ArrayList<EntityLocation> listCountyObject = new ArrayList<EntityLocation>();
 
 	String jsonImg = "";
+	String[] arrAnimalType = null;
+	String animalType="";
+	ArrayAdapter adapterAnimalType;
 
 	@Override
 	public void onClick(View v) {
@@ -187,6 +192,7 @@ public class ActivityAddOrder extends BaseActivity {
 //		et_ImmuneTag = (EditText) findViewById(R.id.et_ImmuneTag);
 		rb_Immune_Yes = (RadioButton)findViewById(R.id.rb_Immune_Yes);
 		rb_Immune_No = (RadioButton)findViewById(R.id.rb_Immune_No);
+		sp_animal_type = (Spinner)findViewById(R.id.sp_animal_type);
 		
 
 		sp_province = (Spinner) findViewById(R.id.sp_province);
@@ -229,7 +235,8 @@ public class ActivityAddOrder extends BaseActivity {
 		rb_Immune_Yes.setOnClickListener(this);
 		rb_Immune_No.setOnClickListener(this);
 		// tv_DeliveryNum.requestFocus();
-
+		
+		
 	}
 
 	private String checkContent() {
@@ -422,6 +429,30 @@ public class ActivityAddOrder extends BaseActivity {
 				listProcessComment.add(GlobalData.listCommonData.get(i).DataValue);
 			}
 		}
+		
+		
+		arrAnimalType = getResources().getStringArray(
+				R.array.animal_type);
+		adapterAnimalType= new ArrayAdapter<String>(this,
+				android.R.layout.simple_spinner_item, arrAnimalType);
+
+		adapterAnimalType
+				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		sp_animal_type.setAdapter(adapterAnimalType);
+		sp_animal_type.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+			@Override
+			public void onItemSelected(AdapterView<?> arg0, View arg1,
+					int position, long arg3) {
+				animalType = arrAnimalType[position];
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) {
+
+			}
+		});
+		
+		sp_animal_type.setSelection(0);
 	}
 
 	AsyncHttpCallBack cbGetLsNo = new AsyncHttpCallBack() {
@@ -516,6 +547,7 @@ public class ActivityAddOrder extends BaseActivity {
 
 		json.addProperty("OfficalVeterSign", getText(et_OfficalVeterSign));
 		json.addProperty("Remark", getText(et_Remark));
+		json.addProperty("animal_type", animalType);
 		jsonImg = new ActivityPicSend().getJsonImg().toString();
 		try {
 			new SJECHttpHandler(cb, this).addOrder(json.toString(), jsonImg);

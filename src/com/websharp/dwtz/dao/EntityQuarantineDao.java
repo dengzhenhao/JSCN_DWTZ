@@ -53,6 +53,7 @@ public class EntityQuarantineDao extends AbstractDao<EntityQuarantine, Void> {
         public final static Property Origin_province_id = new Property(27, String.class, "origin_province_id", false, "ORIGIN_PROVINCE_ID");
         public final static Property Origin_city_id = new Property(28, String.class, "origin_city_id", false, "ORIGIN_CITY_ID");
         public final static Property Origin_county_id = new Property(29, String.class, "origin_county_id", false, "ORIGIN_COUNTY_ID");
+        public final static Property Animal_type = new Property(30, String.class, "animal_type", false, "ANIMAL_TYPE");
     };
 
 
@@ -97,7 +98,8 @@ public class EntityQuarantineDao extends AbstractDao<EntityQuarantine, Void> {
                 "'PIC_BATCH_ID' TEXT," + // 26: PicBatchID
                 "'ORIGIN_PROVINCE_ID' TEXT," + // 27: origin_province_id
                 "'ORIGIN_CITY_ID' TEXT," + // 28: origin_city_id
-                "'ORIGIN_COUNTY_ID' TEXT);"); // 29: origin_county_id
+                "'ORIGIN_COUNTY_ID' TEXT," + // 29: origin_county_id
+                "'ANIMAL_TYPE' TEXT);"); // 30: animal_type
     }
 
     /** Drops the underlying database table. */
@@ -260,6 +262,11 @@ public class EntityQuarantineDao extends AbstractDao<EntityQuarantine, Void> {
         if (origin_county_id != null) {
             stmt.bindString(30, origin_county_id);
         }
+ 
+        String animal_type = entity.getAnimal_type();
+        if (animal_type != null) {
+            stmt.bindString(31, animal_type);
+        }
     }
 
     /** @inheritdoc */
@@ -301,7 +308,8 @@ public class EntityQuarantineDao extends AbstractDao<EntityQuarantine, Void> {
             cursor.isNull(offset + 26) ? null : cursor.getString(offset + 26), // PicBatchID
             cursor.isNull(offset + 27) ? null : cursor.getString(offset + 27), // origin_province_id
             cursor.isNull(offset + 28) ? null : cursor.getString(offset + 28), // origin_city_id
-            cursor.isNull(offset + 29) ? null : cursor.getString(offset + 29) // origin_county_id
+            cursor.isNull(offset + 29) ? null : cursor.getString(offset + 29), // origin_county_id
+            cursor.isNull(offset + 30) ? null : cursor.getString(offset + 30) // animal_type
         );
         return entity;
     }
@@ -339,6 +347,7 @@ public class EntityQuarantineDao extends AbstractDao<EntityQuarantine, Void> {
         entity.setOrigin_province_id(cursor.isNull(offset + 27) ? null : cursor.getString(offset + 27));
         entity.setOrigin_city_id(cursor.isNull(offset + 28) ? null : cursor.getString(offset + 28));
         entity.setOrigin_county_id(cursor.isNull(offset + 29) ? null : cursor.getString(offset + 29));
+        entity.setAnimal_type(cursor.isNull(offset + 30) ? null : cursor.getString(offset + 30));
      }
     
     /** @inheritdoc */

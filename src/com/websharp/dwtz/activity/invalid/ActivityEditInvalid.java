@@ -14,6 +14,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -48,10 +50,22 @@ public class ActivityEditInvalid extends BaseActivity {
 	EditText et_Remark;
 	Spinner sp_butchery_group;
 	int position = 0;
+	
+	LinearLayout layout_processreason;
+	LinearLayout layout_bhg_weight;
+
+	RadioButton rb_invalid_type_zq;
+	RadioButton rb_invalid_type_zh;
+	RadioButton rb_invalid_type_bhg;
+	RadioGroup rg_invalid_type;
+
+	EditText et_bhg_weight;
+	
 	ArrayAdapter adapterButcheryGroup;
 	ArrayList<String> listButcheryGroupName = new ArrayList<String>();
 	ArrayList<EntityButcheryGroup> listButcheryGroup = new ArrayList<EntityButcheryGroup>();
 	private LinearLayout layout_back;
+	
 
 	@Override
 	public void onClick(View v) {
@@ -103,6 +117,17 @@ public class ActivityEditInvalid extends BaseActivity {
 		et_ProcessReason.setEnabled(false);
 		et_ProcessComment.setEnabled(false);
 		et_Remark.setEnabled(false);
+		
+		rg_invalid_type = (RadioGroup) findViewById(R.id.rg_invalid_type);
+		rb_invalid_type_zq = (RadioButton) findViewById(R.id.rb_invalid_type_zq);
+		rb_invalid_type_zh = (RadioButton) findViewById(R.id.rb_invalid_type_zh);
+		rb_invalid_type_bhg =  (RadioButton) findViewById(R.id.rb_invalid_type_bhg);
+
+		layout_processreason = (LinearLayout) findViewById(R.id.layout_processreason);
+		layout_bhg_weight = (LinearLayout) findViewById(R.id.layout_bhg_weight);
+		et_bhg_weight = (EditText) findViewById(R.id.et_bhg_weight);
+		
+		et_bhg_weight.setEnabled(false);
 	}
 
 	@Override
@@ -150,6 +175,18 @@ public class ActivityEditInvalid extends BaseActivity {
 					et_ProcessComment.setText(GlobalData.listUnqualied.get(position).ProcessComment);
 					et_Remark.setText(GlobalData.listUnqualied.get(position).Remark);
 					sp_butchery_group.setSelection(selectPosition);
+					et_bhg_weight.setText(GlobalData.listUnqualied.get(position).Weight);
+					if(GlobalData.listUnqualied.get(position).Type.equals("0")){
+						rb_invalid_type_zq.setChecked(true);
+						layout_processreason.setVisibility(View.VISIBLE);
+					}else 	if(GlobalData.listUnqualied.get(position).Type.equals("1")){
+						rb_invalid_type_zh.setChecked(true);
+						layout_processreason.setVisibility(View.VISIBLE);
+					}else 	if(GlobalData.listUnqualied.get(position).Type.equals("2")){
+						rb_invalid_type_bhg.setChecked(true);
+						layout_bhg_weight.setVisibility(View.VISIBLE);
+					}
+					
 				} else {
 					Util.createToast(ActivityEditInvalid.this,
 							obj.optString("desc", getString(R.string.msg_failed_getButcheryGroup)), 3000).show();

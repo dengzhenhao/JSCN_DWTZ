@@ -36,6 +36,7 @@ import com.websharp.dwtz.data.Constant;
 import com.websharp.dwtz.data.GlobalData;
 import com.websharp.dwtz.http.AsyncHttpCallBack;
 import com.websharp.dwtz.http.SJECHttpHandler;
+import com.websharputil.common.ConvertUtil;
 import com.websharputil.common.LogUtil;
 import com.websharputil.common.Util;
 import com.google.gson.reflect.TypeToken;
@@ -53,12 +54,16 @@ public class ActivityAddInvalid extends BaseActivity {
 	EditText et_Remark;
 	Spinner sp_butchery_group;
 	ImageView iv_camera;
-	
+
+	LinearLayout layout_processreason;
+	LinearLayout layout_bhg_weight;
 
 	RadioButton rb_invalid_type_zq;
 	RadioButton rb_invalid_type_zh;
 	RadioButton rb_invalid_type_bhg;
 	RadioGroup rg_invalid_type;
+
+	EditText et_bhg_weight;
 
 	String QuarantineID = "";
 	String DeliveryNum = "";
@@ -155,11 +160,16 @@ public class ActivityAddInvalid extends BaseActivity {
 		iv_spinner_qr = (ImageView) findViewById(R.id.iv_spinner_qr);
 		iv_spinner_qr_2 = (ImageView) findViewById(R.id.iv_spinner_qr_2);
 		layout_back = (LinearLayout) findViewById(R.id.layout_back);
-		
+
 		rg_invalid_type = (RadioGroup) findViewById(R.id.rg_invalid_type);
 		rb_invalid_type_zq = (RadioButton) findViewById(R.id.rb_invalid_type_zq);
 		rb_invalid_type_zh = (RadioButton) findViewById(R.id.rb_invalid_type_zh);
-		
+		rb_invalid_type_bhg =  (RadioButton) findViewById(R.id.rb_invalid_type_bhg);
+
+		layout_processreason = (LinearLayout) findViewById(R.id.layout_processreason);
+		layout_bhg_weight = (LinearLayout) findViewById(R.id.layout_bhg_weight);
+		et_bhg_weight = (EditText) findViewById(R.id.et_bhg_weight);
+
 		layout_back.setOnClickListener(this);
 		iv_spinner_qr.setOnClickListener(this);
 		iv_spinner_qr_2.setOnClickListener(this);
@@ -169,7 +179,20 @@ public class ActivityAddInvalid extends BaseActivity {
 		btn_gen_scan_code.setOnClickListener(this);
 		iv_spinner_processreason.setOnClickListener(this);
 		iv_spinner_processcomment.setOnClickListener(this);
-		
+
+		rg_invalid_type.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+
+			@Override
+			public void onCheckedChanged(RadioGroup group, int checkedId) {
+				if (checkedId == R.id.rb_invalid_type_zh || checkedId == R.id.rb_invalid_type_zq) {
+					layout_processreason.setVisibility(View.VISIBLE);
+					layout_bhg_weight.setVisibility(View.GONE);
+				} else if (checkedId == R.id.rb_invalid_type_bhg) {
+					layout_processreason.setVisibility(View.GONE);
+					layout_bhg_weight.setVisibility(View.VISIBLE);
+				}
+			}
+		});
 
 		adapterButcheryGroup = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,
 				listButcheryGroupName);
@@ -319,9 +342,12 @@ public class ActivityAddInvalid extends BaseActivity {
 					et_ProcessReason.setText("");
 					et_Remark.setText("");
 					et_UnqualiedScanCode_2.setText("");
+					et_bhg_weight.setText("");
 					rb_invalid_type_zq.setChecked(false);
 					rb_invalid_type_zh.setChecked(false);
 					rb_invalid_type_bhg.setChecked(false);
+					layout_processreason.setVisibility(View.GONE);
+					layout_bhg_weight.setVisibility(View.GONE);
 					getApplication().sendBroadcast(new Intent(Constant.ACTION_REFRESH_LIST_UNQUALIED));
 					// finish();
 				} else {
@@ -351,20 +377,27 @@ public class ActivityAddInvalid extends BaseActivity {
 			return getString(R.string.msg_empty_image_size_0);
 		}
 
-		if (getText(et_ProcessReason).isEmpty()) {
-			return getString(R.string.msg_empty_ProcessReason);
-		}
-
-		if (getText(et_ProcessComment).isEmpty()) {
-			return getString(R.string.msg_empty_ProcessComment);
-		}
-
 		if (sp_butchery_group.getSelectedItemPosition() == AdapterView.INVALID_POSITION) {
 			return "请选择一个屠宰小组";
 		}
-		
-		if(rg_invalid_type.getCheckedRadioButtonId() == -1){
+
+		if (rg_invalid_type.getCheckedRadioButtonId() == -1) {
 			return "请选择不合格记录类型";
+		}
+
+		if (rg_invalid_type.getCheckedRadioButtonId() == R.id.rb_invalid_type_zh
+				|| rg_invalid_type.getCheckedRadioButtonId() == R.id.rb_invalid_type_zq) {
+			if (getText(et_ProcessReason).isEmpty()) {
+				return getString(R.string.msg_empty_ProcessReason);
+			}
+		}else if(rg_invalid_type.getCheckedRadioButtonId() == R.id.rb_invalid_type_bhg){
+			if (getText(et_bhg_weight).isEmpty() || ConvertUtil.ParsetStringToDouble(getText(et_bhg_weight),0) == 0) {
+				return "不合格品重量不能为空并且不能为0";
+			}
+		}
+		
+		if (getText(et_ProcessComment).isEmpty()) {
+			return getString(R.string.msg_empty_ProcessComment);
 		}
 
 		return "";
@@ -379,11 +412,12 @@ public class ActivityAddInvalid extends BaseActivity {
 		json.addProperty("UnqualiedScanCode_2", getText(et_UnqualiedScanCode_2));
 		json.addProperty("ButcheryGroupID", listButcheryGroup.get(sp_butchery_group.getSelectedItemPosition()).InnerID);
 		json.addProperty("Remark", getText(et_Remark));
-		if(rg_invalid_type.getCheckedRadioButtonId()==rb_invalid_type_zq.getId()){
+		json.addProperty("Weight", getText(et_bhg_weight));
+		if (rg_invalid_type.getCheckedRadioButtonId() == rb_invalid_type_zq.getId()) {
 			json.addProperty("Type", 0);
-		}else if(rg_invalid_type.getCheckedRadioButtonId()==rb_invalid_type_zh.getId()){
+		} else if (rg_invalid_type.getCheckedRadioButtonId() == rb_invalid_type_zh.getId()) {
 			json.addProperty("Type", 1);
-		}else{
+		} else {
 			json.addProperty("Type", 2);
 		}
 

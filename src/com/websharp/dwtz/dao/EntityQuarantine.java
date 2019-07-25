@@ -36,11 +36,12 @@ public class EntityQuarantine {
     public String origin_province_id;
     public String origin_city_id;
     public String origin_county_id;
+    public String animal_type;
 
     public EntityQuarantine() {
     }
 
-    public EntityQuarantine(String InnerID, String ButcheryID, String DeliveryNum, String SendTime, String GoodsOwner, String Origin, String QuarantineNum, String QuarantineCount, String ActualCount, String ImmuneTag, String CheckCount, String CheckNegativeCount, String CheckPositiveCount, String UnqualiedCount, String QualiedCount, String ProcessReason, String ProcessComment, String OfficalVeterSign, String Remark, String Add_UserID, String Add_Time, String Add_IP, String Update_UserID, String Update_Time, String Update_IP, String StaffNo, String PicBatchID, String origin_province_id, String origin_city_id, String origin_county_id) {
+    public EntityQuarantine(String InnerID, String ButcheryID, String DeliveryNum, String SendTime, String GoodsOwner, String Origin, String QuarantineNum, String QuarantineCount, String ActualCount, String ImmuneTag, String CheckCount, String CheckNegativeCount, String CheckPositiveCount, String UnqualiedCount, String QualiedCount, String ProcessReason, String ProcessComment, String OfficalVeterSign, String Remark, String Add_UserID, String Add_Time, String Add_IP, String Update_UserID, String Update_Time, String Update_IP, String StaffNo, String PicBatchID, String origin_province_id, String origin_city_id, String origin_county_id, String animal_type) {
         this.InnerID = InnerID;
         this.ButcheryID = ButcheryID;
         this.DeliveryNum = DeliveryNum;
@@ -71,6 +72,7 @@ public class EntityQuarantine {
         this.origin_province_id = origin_province_id;
         this.origin_city_id = origin_city_id;
         this.origin_county_id = origin_county_id;
+        this.animal_type = animal_type;
     }
 
     public String getInnerID() {
@@ -311,6 +313,14 @@ public class EntityQuarantine {
 
     public void setOrigin_county_id(String origin_county_id) {
         this.origin_county_id = origin_county_id;
+    }
+
+    public String getAnimal_type() {
+        return animal_type;
+    }
+
+    public void setAnimal_type(String animal_type) {
+        this.animal_type = animal_type;
     }
 
 }
